@@ -1,0 +1,194 @@
+In this appendix, we show the different experiments carried on various test-beds. Appendix A contains experiments on ClusUCB while Appendix B contains experiments on AugUCB.
+
+\subsection*{Appendix A}
+\label{AppendixA}
+\begin{figure}[!tbp]
+    \centering
+    \begin{tabular}{cc}
+    \setlength{\tabcolsep}{0.1pt}
+    \subfigure[0.25\textwidth][Experiment $1$: $20$ Bernoulli-distributed arms with $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$.]
+    {
+    		\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		ylabel style={yshift=32pt},
+		%legend style={legendshift=32pt},
+		}
+        \begin{tikzpicture}[scale=0.5]
+      	\begin{axis}[
+		xlabel={timestep},
+		ylabel={Cumulative Regret},
+		grid=major,
+        %clip mode=individual,grid,grid style={gray!30},
+        clip=true,
+        %clip mode=individual,grid,grid style={gray!30},
+  		legend style={at={(0.5,1.5)},anchor=north, legend columns=3} ]
+      	% UCB
+		\addplot table{results/NewExpt/Expt1/UCBV01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/UCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/KLUCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/MOSS01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/DMED01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/EclUCB01_1_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/TS01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt1/OCUCB01_comp_subsampled.txt};
+		%\addplot table{results/NewExpt/Expt1/EclUCB011_comp_subsampled.txt};
+      	\legend{UCB-V,UCB1,KL-UCB,MOSS,DMED,EClusUCB,TS,OCUCB}      	
+      	\end{axis}
+      	\end{tikzpicture}
+  		\label{fig:1}
+    }
+    &
+    \subfigure[0.25\textwidth][Experiment $2$: $100$ Gaussian-distributed arms with $r_{i_{{i}\neq {*}:1-33}}=0.1$, $r_{i_{{i}\neq {*}:34-99}}=0.6$ and $r^{*}_{i=100}=0.9$. ]
+    {
+    		\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		}
+        \begin{tikzpicture}[scale=0.5]
+        \begin{axis}[
+		xlabel={timestep},
+		ylabel={Cumulative Regret},
+        %clip mode=individual,grid,grid style={gray!30},
+       	grid=major,
+       	clip=true,
+  		legend style={at={(0.5,1.5)},anchor=north, legend columns=3} ]
+      	% UCB
+        \addplot table{results/NewExpt/Expt2_2/UCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/clUCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/MedElim_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/MOSS01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/EclUCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/OCUCB01_comp_subsampled.txt};
+		\addplot table{results/NewExpt/Expt2_2/UCBR01_comp_subsampled.txt};
+		%\addplot table{results/NewExpt/Expt2_2/EclUCB01_p_1_comp_subsampled.txt};
+		\legend{UCB1,ClusUCB,Med-Elim,MOSS,EClusUCB,OCUCB,UCB-Imp}
+      	%\legend{UCB1,ClusUCB,Med-Elim,MOSS,EClusUCB,OCUCB,UCB-Imp,EClusUCB-AE}
+      	\end{axis}
+      	\end{tikzpicture}
+   		\label{fig:2}
+    }
+    \end{tabular}
+    \caption{Cumulative regret for various bandit algorithms on two stochastic K-armed bandit environments. }
+    \label{fig:karmed}
+\end{figure}
+
+For the purpose of performance comparison using cumulative regret as the metric, we implement the following algorithms:  KL-UCB\cite{garivier2011kl}, DMED\cite{honda2010asymptotically}, MOSS\cite{audibert2009minimax}, UCB1\cite{auer2002finite}, UCB-Improved\cite{auer2010ucb}, Median Elimination\cite{even2006action}, Thompson Sampling(TS)\cite{agrawal2011analysis} and UCB-V\cite{audibert2009exploration}\footnote{The implementation for KL-UCB and DMED were taken from \cite{CapGarKau12}}. The parameters of ClusUCB/EClusUCB algorithm for all the experiments are set as follows: $\psi=\frac{T}{196 \log K}$, $\rho_{s}=0.5$, $\rho_{a}=0.5$ and $p=\lceil\frac{K}{\log K}\rceil$.
+%whereas for ClusUCB(Aggressive)$\big/$EClusUCB(Aggressive) or ClusUCBA$\big/$EClusUCBA algorithm the parameters are set as $\psi=\log T$, $\rho_{s}=0.5$, $\rho_{a}=0.5$ and $p=\lceil\frac{K}{\log K}\rceil$. We can clearly see that EClusUCBA has a lower exploration regulatory factor and conducts less exploration and is a riskier algorithm than EClusUCB.
+
+
+The first experiment is conducted over a testbed of $20$ arms for the test-cases involving Bernoulli reward distribution with expected rewards of the arms $r_{i_{{i}\neq {*}}}=0.07$ and $r^{*}=0.1$. These type of cases are frequently encountered in web-advertising domain. The horizon $T$ is set to $60000$. 
+%After limited exploratory experimentation the number of clusters $p$ for ClusUCB is set to $4$. 
+The regret is averaged over $100$ independent runs and is shown in Figure \ref{fig:1}. EClusUCB, MOSS, UCB1, UCB-V, KL-UCB, TS and DMED are run in this experimental setup and we observe that EClusUCB performs better than all the aforementioned algorithms except TS. Because of the small gaps and short horizon $T$, we do not implement UCB-Improved and Median Elimination on this test-case. 
+%We also observe that in this case the cumulative regret of EClusUCB and TS are almost similar to each other.
+
+The second experiment is conducted over a testbed of $100$ arms involving Gaussian reward distribution with expected rewards of the arms $r_{i_{{i}\neq {*}:1-33}}=0.1$, $r_{i_{{i}\neq {*}:34-99}}=0.6$ and $r^{*}_{i=100}=0.9$ with variance set at $\sigma_{i}^{2} = 0.3,\forall i\in A$. The horizon $T$ is set for a large duration of $2\times 10^{5}$ and the regret is averaged over $100$ independent runs and is shown in Figure \ref{fig:2}. In this case, in addition to EClusUCB, we also show the performance of ClusUCB algorithm. From the results in Figure \ref{fig:2}, we observe that EClusUCB outperforms ClusUCB as well as MOSS, UCB1, UCB-Improved and Median-Elimination($\epsilon=0.1,\delta=0.1$). But ClusUCB and UCB-Improved behaves almost similaryly in this environment. Also the performance of UCB-Improved is poor in comparison to other algorithms, which is probably because of pulls wasted in initial exploration whereas EClusUCB with the choice of $\psi, \rho_{a}$ and $\rho_{s}$ performs much better. 
+%More experiments are shown in Appendix \ref{App:MoreExp}.
+
+\subsection*{Appendix B}
+\label{AppendixB}
+In this section we compare the empirical performance of AugUCB against APT, Uniform Allocation, CSAR, UCBE and UCBEV algorithm. The threshold $\tau$ is set at $0.5$ for all experiments. Each algorithm is run independently $500$ times for $10000$ timesteps and the output set of arms suggested by the algorithms at every timestep is recorded. The output is considered erroneous if the correct set of arms is not $i=\lbrace 6,7,8,9,10 \rbrace$ (true for all the experiments). The error percentage over $500$ runs is plotted against $10000$ timesteps. For the uniform allocation algorithm, for each $t=1,2,..,T$ the arms are sampled uniformly. For UCBE algorithm (\cite{audibert2009exploration}) which was built for single best arm identification, we modify it according to \cite{locatelli2016optimal} to suit the goal of finding arms above the threshold $\tau$. So the exploration parameter $a$ in UCBE is set to $a=\frac{T-K}{H_1}$. Again, for UCBEV, following \cite{gabillon2011multi}, we modify it such that the exploration parameter $a = \frac{T-2K}{H_{1}^{\sigma}}$. Then for each timestep $t=1,2,..,T$ we pull the arm that minimizes $\lbrace |\hat{r}_{i} -\tau|-\sqrt{\frac{a}{n_{i}}} \rbrace$, where $n_{i}$ is the number of times the arm $i$ is pulled till $t-1$ timestep and $a$ is set as mentioned above for UCBE and UCBEV respectively. Also, APT is run with $\epsilon=0.05$, which denotes the precision with which the algorithm suggests the best set of arms and we modify CSAR as per \cite{locatelli2016optimal} such that it behaves as a Successive Reject algorithm whereby it rejects the arm farthest from $\tau$ after each phase. For AugUCB we take $\rho_{\mu}=\frac{1}{8}$ and $\rho_v=\frac{1}{3}$ as in Theorem \ref{Result:Theorem:1}.
+%So when $\epsilon$ is  set to $0$ APT has to suggest the exact set of arms above the threshold.
+%where $H_{1}^{\sigma}=\sum_{i=1}^{K}\frac{\sigma_{i}+\sqrt{\sigma_{i}^{2}+(16/3)\Delta_{i}}}{\Delta_{i}^{2}}$	
+	The first experiment is conducted on a testbed of $100$ arms involving Gaussian reward distribution with expected rewards of the arms $r_{1:4}=0.2+(0:3)*0.05$, $r_{5}=0.45$, $r_{6}=0.55$, $r_{7:10}=0.65+(0:3)*0.05$ and $r_{11:100}$=0.4. The means of first $10$ arms are set as arithmetic progression. Variance is set as $\sigma_{1:5}^{2}=0.5$ and $\sigma_{6:10}^{2}=0.6$. Then $\sigma_{11:100}^{2}$ is chosen uniform randomly between $0.38-0.42$. The means in the testbed are chosen in such a way that any algorithm has to spend a significant amount of budget to explore all the arms and variance is chosen in such a way that the arms above $\tau$ have high variance whereas arms below $\tau$ have lower variance. The result is shown in Figure \ref{Fig:budgetExpt1}. In this experiment we see that UCBEV which has access to the problem complexity and is a variance-aware algorithm beats all other algorithm including UCBE which has access to the problem complexity but does not take into account the variance of the arms. AugUCB with the said parameters outperforms UCBE, APT and the other non variance-aware algorithms that we have considered. 
+	
+	\begin{figure}
+    \centering
+    \begin{tabular}{cc}
+    \subfigure[0.32\textwidth][Experiment $1$: Experiment with Arithmetic Progression]
+    {
+    		\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		}
+        \begin{tikzpicture}[scale=0.5]
+      	\begin{axis}[
+		xlabel={timestep},
+		ylabel={Error Percentage},
+		grid=major,
+        %clip mode=individual,grid,grid style={gray!30},
+        clip=true,
+        %clip mode=individual,grid,grid style={gray!30},
+  		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
+      	% UCB
+		\addplot table{results/budgetTestAP/APT12_comp_subsampled.txt};
+		%\addplot table{results/budgetTestAP/AugUCB12_comp_subsampled.txt};
+		\addplot table{results/budgetTestAP/AugUCBV_1_13_comp_subsampled.txt};
+		\addplot table{results/budgetTestAP/UCBEM1_comp_subsampled.txt};
+		\addplot table{results/budgetTestAP/UCBEMV1_comp_subsampled.txt};
+		\addplot table{results/budgetTestAP/SR1_comp_subsampled.txt};
+		\addplot table{results/budgetTestAP/UA1_comp_subsampled.txt};
+		%\addplot table{results/budgetTestAP/AugUCBM11_comp_subsampled.txt};
+      	\legend{APT,AugUCB,UCBE,UCBEV,CSAR,Unif Alloc}
+      	\end{axis}
+      	\end{tikzpicture}
+  		\label{Fig:budgetExpt1}
+    }
+%    &
+%    \subfigure[0.32\textwidth][Experiment $2$: Experiment with $4$ Group Setting ]
+%    {
+%    		\pgfplotsset{
+%		tick label style={font=\Huge},
+%		label style={font=\Huge},
+%		legend style={font=\Large},
+%		}
+%        \begin{tikzpicture}[scale=0.4]
+%        \begin{axis}[
+%		xlabel={timestep},
+%		ylabel={Error Percentage},
+%        %clip mode=individual,grid,grid style={gray!30},
+%       	grid=major,
+%       	clip=true,
+%  		legend style={at={(0.5,1.2)},anchor=north, legend columns=3} ]
+%      	% UCB
+%		\addplot table{results/budgetTestGR/APT1_comp_subsampled.txt};
+%		\addplot table{results/budgetTestGR/UA1_comp_subsampled.txt};
+%		\addplot table{results/budgetTestGR/UCBEM1_comp_subsampled.txt};
+%		\addplot table{results/budgetTestGR/UCBEMV1_comp_subsampled.txt};
+%		\addplot table{results/budgetTestGR/AugUCB1_comp_subsampled.txt};
+%		\addplot table{results/budgetTestGR/SR1_comp_subsampled.txt};
+%        \legend{APT,Unif Alloc,UCBE($1$),UCBEV($1$),AugUCB,CSAR}
+%      	\end{axis}
+%      	\end{tikzpicture}
+%   		\label{Fig:budgetExpt2} 
+%    }
+    &
+    \subfigure[Experiment $2$: Experiment with Geometric Progression ]
+    {
+    	\pgfplotsset{
+		tick label style={font=\Large},
+		label style={font=\Large},
+		legend style={font=\Large},
+		}
+        \begin{tikzpicture}[scale=0.5]
+        \begin{axis}[
+		xlabel={timestep},
+		ylabel={Error Percentage},
+        %clip mode=individual,grid,grid style={gray!30},
+		grid=major,
+		clip=true,
+  		legend style={at={(0.5,1.4)},anchor=north, legend columns=3} ]
+        % UCB
+		\addplot table{results/budgetTestGP/APT12_comp_subsampled.txt};
+		%\addplot table{results/budgetTestGP/AugUCB12_comp_subsampled.txt};
+		\addplot table{results/budgetTestGP/AugUCBV_1_13_comp_subsampled.txt};
+		\addplot table{results/budgetTestGP/UCBEM1_comp_subsampled.txt};
+		\addplot table{results/budgetTestGP/UCBEMV1_comp_subsampled.txt};
+		\addplot table{results/budgetTestGP/SR1_comp_subsampled.txt};
+		\addplot table{results/budgetTestGP/UA1_comp_subsampled.txt};
+        \legend{APT,AugUCB,UCBE,UCBEV,CSAR,Unif Alloc}
+      	\end{axis}
+      	\label{Fig:budgetExpt2}
+        \end{tikzpicture}
+    }
+    \end{tabular}
+    \caption{Experiments with thresholding bandit}
+    \label{fig:budgetExpt}
+\end{figure}
+
+	
+	The second experiment is conducted on a testbed of $100$ arms with the means of first $10$ arms set as Geometric Progression. The testbed involves Gaussian reward distribution with expected rewards of the arms as $r_{1:4}=0.4-(0.2)^{1:4}$, $r_{5}=0.45$, $r_{6}=0.55$ and $r_{7:10}=0.6+(0.2)^{5-(1:4)}$. The variances of all the arms and $r_{11:100}$ are set in the same way as in experiment $1$. AugUCB, APT, CSAR, Uniform Allocation, UCBE and UCBEV with the same settings as experiment $1$ are run on this testbed. The result is shown in Figure \ref{Fig:budgetExpt2}. Here, again we see that AugUCB beats APT, UCBE and all the non-variance aware algorithms with only UCBEV beating AugUCB. 
+	
