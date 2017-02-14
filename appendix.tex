@@ -1,6 +1,644 @@
-In this appendix, we show the different experiments carried on various test-beds. Appendix A contains experiments on ClusUCB while Appendix B contains experiments on AugUCB.
+In this appendix, we show the proofs and different experiments carried on various test-beds. Appendix \label{AppendixA} contains experiments on ClusUCB while Appendix \label{AppendixB} contains experiments on AugUCB.
 
-\subsection*{Appendix A}
+\subsection{Proof of Regret Bound of ClusUCB}
+\label{AppendixClusUCB}
+
+\begin{proof}
+
+%$\Delta_{i}^{'}=r_{a_{\max_{s_{k}}}} - r_{i}$ such that $a_{i}\in s_{k}$,
+% m_{i}^{'}=\min{\lbrace m|\sqrt{\rho_{a}\epsilon_{m}} < \frac{\Delta_{i}^{'}}{2} \rbrace}
+Let $A^{'}=\lbrace i \in A,\Delta_{i}> b\rbrace$,  $A^{''}=\lbrace i \in A, \Delta_{i} > 0\rbrace$, $A^{'}_{s_{k}}=\lbrace i \in A_{s_{k}},\Delta_{i}> b\rbrace$ and $A^{''}_{s_{k}}=\lbrace i \in A_{s_{k}}, \Delta_{i} > 0 \rbrace$. $C_{g}$ is the cluster set containing max payoff arm from each cluster in $g$-th round. The arm having the highest payoff in a cluster $s_{k}$ is denote by $a_{\max_{s_{k}}}$. Let for each sub-optimal arm ${i}\in A$, $m_{i}=\min{\lbrace m|\sqrt{\rho_{a}\epsilon_{m}} < \frac{\Delta_{i}}{2} \rbrace}$ and let for each cluster $s_{k}\in S$, $g_{s_{k}}=\min{\lbrace g|\sqrt{\rho_{s}\epsilon_{g}} < \frac{\Delta_{a_{\max_{s_{k}}}}}{2} \rbrace}$. 
+Let $\check{A}=\lbrace {i}\in A^{'} | {i}\in s_{k} , \forall s_{k}\in S \rbrace$.
+%and $A^{'''}_{s_{k}}=\lbrace i \in A_{s_{k}}, b < \Delta_{a_{\max_{s_{k}}}} < \Delta_{i}^{'}  \rbrace$
+%\todos[inline]{define $g_{s_k}$ for each cluster $s_k \in S$}
+%\todos[inline]{$a_{max_{s_{k}}}$ is never defined. In the notation of Sec 2 $r_{max_{s_{k}}}$ is defined as the best arm within the cluster $s_k$}
+%\todos[inline]{Change max to the operator $\max$ everywhere}
+%\todos[inline]{critical error: $m_i$ defintion should be with $\sqrt{\rho_{a}\epsilon_{m}}< \frac{\Delta_{i}}{2}$. Same for $g$} 
+
+%be the first round when $\sqrt{\rho_{a}\epsilon_{m}}\leq \dfrac{\Delta_{i}}{2}$ and for each sub-optimal cluster arm $a_{max_{s_{k}}}\in C_{g_{s_{k}}}$,
+%So, $g_{s_{k}}$ be the first round when $\sqrt{\rho_{s}\epsilon_{g_{s_{k}}}}\leq \dfrac{\Delta_{a_{max_{s_{k}}}}}{2}$ where $a_{max_{s_{k}}}\in C_{g_{s_{k}}}$ is the maximum payoff arm in cluster $s_{k}$ and then $s_{k}$ gets eliminated
+%The theoretical analysis remains same as we have always bounded the values of $\rho_{a}\in (0,1]$(see Appendix \ref{App:E}).
+%Also we cluster the arms based on $\epsilon_{m}$.
+% One vital point we point out is that, $\epsilon_{m}$(in proposition $3$) = $\epsilon_{g}$(in proposition $4$).
+The analysis proceeds by considering the contribution to the regret in each of the following cases:
+
+\textbf{Case a:} \textit{Some sub-optimal arm ${i}$ is not eliminated in round $\max(m_{i},g_{s_{k}})$ or before, with the optimal arm ${*}\in C_{\max(m_{i},g_{s_{k}})}$.}
+
+%\todos[inline]{The stmt ``In this case, we are looking at event of the maximum round till which atleast one of $m_{i}$ or $g_{s_{k}}$ did not happen.'' is unnecessary give the case caption above} 
+%	In this case, we are looking at event of the maximum round till which atleast one of $m_{i}$ or $g_{s_{k}}$ did not happen. 
+We consider an arbitrary sub-optimal arm ${i}$ and analyze the contribution to the regret when $i$ is not eliminated in the following exhaustive sub-cases:\\
+%\todos[inline]{Get rid of enumerate to save space. You could just have the case labels, say case a1 and such}
+\textbf{Case a1:} \textit{In round $\max(m_{i},g_{s_{k}})$, ${i} \in s^{*}$.}
+
+Similar to case (a) of \cite{auer2010ucb}, observe that when the following two conditions hold, arm $i$ gets eliminated:
+\begin{align}
+\hat{r}_{i}  \le r_{i} + c_{m_{i}} \text{ and } 
+ \hat{r}^{*}\geq  r^{*} - c_{m_{i}}, \label{eq:armelim-casea1}
+\end{align}
+where  $c_{m_{i}}=\sqrt{\frac{\rho_{a}\log (\psi T\epsilon_{m_{i}}^{2})}{2 n_{m_{i}}}}$.
+The arm $i$ gets eliminated because 
+  \begin{align*}
+\hat{r}_{i} + c_{m_{i}}&\leq r_{i} + 2c_{m_{i}} < r_{i} + \Delta_{i} - 2c_{m_{i}} = r^{*} -2c_{m_{i}} \\
+ &\leq \hat{r}^{*} - c_{m_{i}}.
+  \end{align*}
+%\todos[inline]{The stmt ``bound the probability of the event $\hat{r}_{i}+c_{m_{i}}\leq \hat{r}^{*}-c_{m_{i}}$'' is wrong. We bound the complementary event using Hoeffding} 
+%\todos[inline]{The stmt ``$m_{i}$ does not happen'' makes no sense given that we are in round $\max(m_i,g_i)$}
+%\todos[inline]{What is $c_m$?}
+  %Now, $c_{m_{i}}=\sqrt{\frac{\rho_{a}\log (\psi T\epsilon_{m_{i}}^{2})}{2 n_{m_{i}}}}$.
+In the above, we have used the fact that \\ $c_{m_{i}} = \sqrt{\rho_{a}\epsilon_{m_{i}+1}} < \frac{\Delta_{i}}{4}$, since $n_{m_{i}}=\frac{2\log{(\psi T\epsilon_{m_{i}}^{2})}}{\epsilon_{m_{i}}}$ and $\rho_{a}\in (0,1]$.
+
+From the foregoing, we have to bound the events complementary to that in \eqref{eq:armelim-casea1} for an arm $i$ to not get eliminated. Considering Chernoff-Hoeffding bound this is done as follows:
+%\todos[inline]{In the following, $\exists a_i$ is spurious given that we are talking about arm $a_i$ all through in this case} 
+%  %Again, $\exists a_{i} \in A_{s^{*}}^{'}$ such that, 
+%\todos[inline]{$r_{i} + 2c_{m_{i}} 
+% < r_{i} + \Delta_{i} - 2c_{m_{i}}$}
+%\todos[inline]{The final inequality above does not hold unless you assume $\hat{r}^{*}\geq r^{*} - c_{m_{i}}$ and this is never mentioned?}
+  %Hence, we get that when $\sqrt{\rho_{a}\epsilon_{m_{i}}}<\frac{\Delta_{i}}{2}$, $a_{i}$ gets eliminated. 
+  %Applying Chernoff-Hoeffding bound and considering independence of events,
+  \begin{align*}
+&\mathbb{P}\left(\hat{r}^{*}\leq r^{*} - c_{m_{i}}\right)\leq \exp(-2c_{m_{i}}^{2}n_{m_{i}})\\
+&\leq \exp(-2 * \frac{\rho_{a}\log (\psi T\epsilon_{m_{i}}^{2})}{2 n_{m_{i}}} *n_{m_{i}})\\
+&\leq \frac{1}{(\psi T\epsilon_{m_{i}}^{2})^{\rho_{a}}}   
+  \end{align*}
+Along similar lines, we have 
+$\mathbb{P}\left(\hat{r}_{i}\geq r_{i} + c_{m_{i}}\right)\leq \frac{1}{(\psi  T\epsilon_{m_{i}}^{2})^{\rho_{a}}}.$
+Thus, the probability that a sub-optimal arm ${i}$ is not eliminated in any round on or before $m_{i}$ is bounded above by  $\bigg(\frac{2}{(\psi T\epsilon_{m_{i}}^{2})^{\rho_{a}}}\bigg)$. 
+ Summing up over all arms in $A_{s^{*}}^{'}$ in conjunction with a simple bound of $T\Delta_{i}$ for each arm, we obtain
+   \begin{align*}
+&\sum_{i\in A_{s^{*}}^{'}}\bigg(\dfrac{2T\Delta_{i}}{(\psi T\epsilon_{m_{i}}^{2})^{\rho_{a}}}\bigg)
+\leq\sum_{i\in A_{s^{*}}^{'}}\bigg(\frac{2T\Delta_{i}}{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{a}^{2}})^{\rho_{a}}}\bigg)\\
+%&\leq \sum_{i\in A_{s^{*}}^{'}}\bigg(\frac{2^{1+4\rho_{a}}T^{1-\rho_{a}}\rho_{a}^{2\rho_{a}}\Delta_{i}}{\psi^{\rho_{a}}\Delta_{i}^{4\rho_{a}}}\bigg)\\
+& =\sum_{i\in A_{s^{*}}^{'}}\bigg(\frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a}-1}}\bigg) \text{, where } C_1(x) = \frac{2^{1+4x}x^{2x}}{\psi^{x}}
+   \end{align*}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+%\textbf{Case a2:} \textit{In round $m_{i}^{'}$, $a_{i} \in s_{k}$ for some $s_k \ne s^*$} % where $r_{\max_{s_{k}}}\leq r^{*}$ 
+%
+%%\todos[inline]{The description in the text below for this case doesnt make sense to me. The final bound arrived at uses $\Delta_i$, while it doesnt figure here in the argument here at all. }
+%%We can show that the probability of $a_{i}$ not getting eliminated cannot be worse than Case $a1$ given that $m_{i}^{'}< g_{s_{k}}$ or else $g_{s_{k}}$ will happen and the cluster $s_{k}$ will get eliminated or $a_{\max_{s_{k}}}$ will eliminate $a^{*}$ which are dealt later. 
+%
+%Approaching the same way as above we define $\Delta_{i}^{'}=r_{a_{\max_{s_{k}}}} - r_{i}$, for $a_{i}\in s_{k}$, $m_{i}^{'}=\min{\lbrace m|\sqrt{\rho_{a}\epsilon_{m}} < \frac{\Delta_{i}^{'}}{2} \rbrace}$.Then plugging in $\Delta^{'}_{i}$ in Case $a1$ and bounding the complementary events mentioned in \ref{eq:armelim-casea} by using $r_{i}$ and $r_{a_{\max_{s_{k}}}}$, we can show that for an arm $a_{i}\in A_{s_{k}}^{'}$ the maximum probability of not getting eliminated on or before $m_{i}^{'}$ is  $\bigg(\dfrac{2}{(\psi T\epsilon_{m_{i}^{'}}^{2})^{\rho_{a}}}\bigg)$. So bounding trivially over $T\Delta_{i}^{'}$ the regret is bounded by,
+%
+%\begin{align*}
+%& \sum_{i\in A_{s_{k}}^{'}}\frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{'^{{4\rho_{a}-1}}}} 
+%   \end{align*}
+%   %\leq \sum_{i\in A_{s_{k}}^{'''}} \frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{a_{\max_{s_{k}}}}^{4\rho_{a}-1}}
+%   %\leq \sum_{\substack{i\in A_{s_{k}}^{'}: \\ \Delta_{i}^{'}\geq \Delta_{a_{\max_{s_{k}}}} }}\frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{a_{\max_{s_{k}}}}^{4\rho_{a}-1}}
+%   %and considering $ \frac{1}{4} \leq \rho_{a} \leq 1 $
+%Summing over all $p-1$ clusters excluding $s^{*}$ the regret is,
+%\begin{align*}
+%& \sum_{k=1}^{p-1}\sum_{i\in A_{s_{k}}^{'}\setminus A_{s^{*}}^{'}} \frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{'^{^{4\rho_{a}-1}}}} \leq \sum_{i\in A^{'}\setminus A^{'}_{s^{*}}}\frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{'^{4\rho_{a}-1}}} 
+%   \end{align*}
+%   
+%%   For any round $m_{i}^{'} > g_{s_{k}}$ and $a_{i}\neq a_{max_{s_{k}}}$ means that $\hat{r}_{i} - c_{m_{i}} > \hat{r_{a_{max_{s_{k}}}}} + c_{m_{i}}$ and also $\hat{r_{a_{max_{s_{k}}}}}  - c_{m_{i}} > \hat{r}^{*} + c_{m_{i}}$ which leads to the violation of the condition that 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\textbf{Case a2:} \textit{In round $\max(m_{i},g_{s_{k}})$, ${i} \in s_k$ for some $s_k \ne s^{*}$.}
+
+%\todos[inline]{Fix this case analysis to read as well as case a1. The first part until the Hoeffding bounds can be shorter than case a1, as the analysis to arrive at Hoeffding events follows using parallel arguments.} 
+%then in cluster elimination condition, given the choice of confidence interval $c_{g_{s_{k}}}=\sqrt{\frac{\rho_{s} \log (\psi T\epsilon_{g_{s_{k}}}^{2})}{2 n_{g_{s_{k}}}}}$, we want to bound the probability of the event $\hat{r}_{s_{k}}+c_{g_{s_{k}}}\geq \hat{r}^{*}-c_{g_{s_{k}}}$.
+%
+%
+%  Putting the value of $n_{g_{s_{k}}}=\frac{2\log{(\psi T\epsilon_{g_{s_{k}}}^{2})}}{\epsilon_{g_{s_{k}}}}$ in $c_{g_{s_{k}}}$, we get $c_{g_{s_{k}}} =\sqrt{\rho_{s}\epsilon_{g_{s_{k}}+1}} < \frac{\sqrt{\rho_{s}}\Delta_{a_{\max_{s_{k}}}}}{4} < \frac{\Delta_{a_{\max_{s_{k}}}}}{4}$.
+%
+%  
+%  \begin{align*}
+%  \hat{r}_{a_{\max_{s_{k}}}} + c_{g_{s_{k}}}&\leq r_{a_{\max_{s_{k}}}} + 2c_{g_{s_{k}}} = r_{a_{\max_{s_{k}}}} + 4c_{g_{k}} - 2c_{g_{s_{k}}}\\
+%  &< r_{a_{\max_{s_{k}}}} + \Delta_{a_{\max_{s_{k}}}} - 2c_{g_{s_{k}}} = r^{*} -2c_{g_{s_{k}}}\\
+%  &\leq \hat{r}^{*} - c_{g_{s_{k}}} \text{, as } \hat{r}^{*}\geq r^{*} - c_{g_{s_{k}}}
+%  \end{align*}
+%   
+% 	Hence, we get that when $\sqrt{\rho_{s}\epsilon_{g_{s_{k}}}}<\frac{\Delta_{a_{\max_{s_{k}}}}}{2}$, $a_{\max_{s_{k}}}\in C_{g_{s_{k}}}$ gets eliminated leading to elimination of $s_{k}$. Applying Chernoff-Hoeffding bound and considering independence of events,
+% 
+% 
+% \begin{align*}
+% \mathbb{P}\bigg\lbrace\hat{r}^{*} &\leq r^{*} - c_{g_{s_{k}}}\bigg\rbrace \leq exp(-2c_{g_{s_{k}}}^{2}n_{g_{s_{k}}})
+% \leq \dfrac{1}{(\psi T\epsilon_{g_{k}}^{2})^{\rho_{s}}}
+% \end{align*}
+%
+%Similarly, $\mathbb{P}\bigg\lbrace\hat{r}_{a_{\max_{s_{k}}}}\geq r_{a_{\max_{s_{k}}}} + c_{g_{s_{k}}}\bigg\rbrace\leq \dfrac{1}{(\psi T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}}$
+
+Following a parallel argument like in Case $a1$, we have to bound the following two events of arm $a_{\max_{s_{k}}}$ not getting eliminated on or before $g_{s_{k}}$-th round,
+\begin{align*}
+  \hat{r}_{a_{\max_{s_{k}}}} \geq r_{a_{\max_{s_{k}}}} +c_{g_{s_{k}}} \text{ and } \hat{r}^{*} \leq r^{*} -c_{g_{s_{k}}}  
+\end{align*} 
+
+We can prove using Chernoff-Hoeffding bounds and considering independence of events mentioned above, that for $c_{g_{s_{k}}}=\sqrt{\frac{\rho_{s} \log (\psi T\epsilon_{g_{s_{k}}}^{2})}{2 n_{g_{s_{k}}}}}$ and  $n_{g_{s_{k}}}=\frac{2\log{(\psi T\epsilon_{g_{s_{k}}}^{2})}}{\epsilon_{g_{s_{k}}}}$ the probability of the above two events is bounded by $\bigg(\dfrac{2}{(\psi  T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}}\bigg)$.
+%Summing, the two up, the probability that a sub-optimal cluster arm $a_{\max_{s_{k}}}\in C_{g_{s_{k}}}$ is not eliminated
+  Now, for any round $g_{s_{k}}$, all the elements of $C_{\max(m_{i},g_{s_{k}})}$ are the respective maximum payoff arms of their cluster $s_{k}, \forall s_{k}\in S$, and since all the surviving arms are pulled equally in each round and since clusters are fixed so we can bound the maximum probability that a sub-optimal arm ${i}\in A^{'}$  and ${i}\in s_{k}$ such that $a_{\max_{s_{k}}}\in C_{g_{s_{k}}}$ is not eliminated on or before the $g_{s_{k}}$-th round by the same probability as above. 
+
+%\begin{align*}
+%\bigg(\frac{2}{(\psi T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}}\bigg)
+%\end{align*}
+ 
+%Summing up over all arms in $s_{k}$ and bounding trivially by $T\Delta_{i}$,
+%\begin{align*}
+%\sum_{i\in A_{s_{k}}}\bigg(\frac{2T\Delta_{i}}{(\psi T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}}\bigg)
+%\end{align*}
+
+Summing up over all $p$ clusters and bounding the regret for each arm $i\in A_{s_{k}}^{'}$ trivially by $T\Delta_{i}$,
+ \begin{align*}
+ &\sum_{k=1}^{p}\sum_{i\in A_{s_{k}}^{'}}\bigg(\frac{2T\Delta_{i}}{(\psi T\frac{\Delta_{i}^{4}}{16\rho_{s}^{2}})^{\rho_{s}}}\bigg) = \sum_{i\in A^{'}}\bigg(\frac{2T\Delta_{i}}{(\psi  T\frac{\Delta_{i}^{4}}{16\rho_{s}^{2}})^{\rho_{s}}}\bigg) \\
+ &\leq \sum_{i\in A^{'}}\bigg(\frac{2^{1+4\rho_{s}}\rho_{s}^{2\rho_{s}}T^{1-\rho_{s}}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}-1}}\bigg) = \sum_{i\in A^{'}}\frac{C_{1}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}}
+ \end{align*}
+% &= \sum_{i\in A^{'}}\bigg(\frac{C_{1}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}}\bigg) \text{, where } C_1(x) = \frac{2^{1+4x}x^{2x}}{\psi^{x}}
+%&\leq \sum_{i\in A}\bigg(\frac{2^{1+4\rho_{s}}T^{1-\rho_{s}}\rho_{s}^{2\rho_{s}}\Delta_{i}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}}}\bigg)\\
+
+
+
+Summing the bounds in Cases $a1-a2$ and observing that the bounds in the aforementioned cases hold for any round $C_{\max \lbrace m_i,g_{s_k}\rbrace}$, we obtain the following contribution to the expected regret from case a:
+   %Taking summation of the events mentioned above($a1$-$a4$) gives us an upper bound on the regret given that the optimal arm $a^{*}$ is still surviving, 
+\begin{align*}
+&\sum_{i\in A_{s^*}} \frac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a}-1}} + \sum_{i\in A^{'}}\bigg(\frac{C_{1}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}}\bigg)
+\end{align*}
+
+%So the regret for not eliminating a sub-optimal cluster even when $a^{*}\notin C_{g_{s_{k}}}$(but still surviving in $s^{*}$) can be no worse than,
+%	 \begin{align*} 
+%	 \bigg(\frac{2}{(T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}}\bigg) 
+%	 \end{align*}
+%&\underbrace{\sum_{i\in A_{s^{*}}^{'}}\bigg(\dfrac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a}-1}}\bigg)}_{\text{case a1}} + \underbrace{\sum_{i\in A\setminus A_{s^{*}}^{'}}\bigg(\dfrac{C_{1}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a}-1}}\bigg)}_{\text{case a2}} \\
+% & + \sum_{i\in A^{'}}\bigg\lbrace \underbrace{\bigg(\dfrac{2C_{1}(\rho_{s})T^{1-\rho_{s}}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}-1}}\bigg)}_{\text{case a3+a4}}\bigg\rbrace \\
+%& =
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\textbf{Case b:} \textit{For each arm $i$, either ${i}$ is eliminated in round $\max (m_{i},g_{s_{k}})$ or before or there is no optimal arm ${*}$ in $C_{\max(m_{i},g_{s_{k}})}$.} \\
+
+\textbf{Case b1:} \textit{${*}\in C_{\max(m_{i},g_{s_{k}})}$ for each arm $i \in A'$ and cluster $s_k \in \check A$.} 
+
+%\todos{define $\check A$}
+
+The condition in the case description above implies the following: \\
+\begin{inparaenum}[\bfseries (i)]
+\item each sub-optimal arm ${i}\in A^{'}$ is  eliminated on or before $\max (m_{i},g_{s_{k}})$ and hence  pulled not more than pulled $n_{m_{i}}$ number of times.\\
+\item each sub-optimal cluster $s_k \in \check A$ is  eliminated on or before $\max (m_{i},g_{s_{k}})$ and hence  pulled not more than pulled $n_{g_{s_{k}}}$ number of times.
+\end{inparaenum}
+
+Hence, the maximum regret suffered due to pulling of a sub-optimal arm or a sub-optimal cluster is no more than the following:
+ \begin{align*}
+ &\sum_{i\in A^{'}}\Delta_{i}\bigg\lceil\dfrac{2\log{(\psi T\epsilon_{m_{i}}^{2})}}{\epsilon_{m_{i}}}\bigg\rceil 
+\!+\! \sum_{k=1}^{p}\sum_{i\in A_{s_{k}}^{'}}\Delta_{i}\bigg\lceil\dfrac{2\log{(\psi T\epsilon_{g_{s_{k}}}^{2})}}{\epsilon_{g_{s_{k}}}}\bigg\rceil \\
+&\leq\sum_{i\in A^{'}}\Delta_{i}\bigg(1+\dfrac{32\rho_{a}\log{\left(\psi T\left(\frac{\Delta_{i}}{2\sqrt{\rho_{a}}}\right)^{4}\right)}}{\Delta_{i}^{2}}\bigg) \\
+&\quad+ \sum_{i\in A^{'}}\Delta_{i}\bigg(1+\dfrac{32\rho_{s}\log{\left(\psi T\left(\frac{\Delta_{i}}{2\sqrt{\rho_{s}}}\right)^{4}\right)}}{\Delta_{i}^{2}}\bigg)
+\\
+ &\leq \sum_{i\in A^{'}}\!\bigg[ 2\Delta_{i}+\dfrac{32(\rho_{a}\log{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{a}^{2}})} + \rho_{s}\log{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{s}^{2}})})}{\Delta_{i}} \bigg]
+%  \\
+% & \qquad \qquad +\dfrac{32\rho_{s}\log{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{s}^{2}})}}{\Delta_{i}}\bigg\rbrace 
+ \end{align*}
+In the above, the first inequality follows since $\sqrt{\rho_{a}\epsilon_{m_{i}}} < \frac{\Delta_{i}}{2}$ and $\sqrt{\rho_{s}\epsilon_{n_{g_{s_{k}}}}} < \frac{\Delta_{a_{\max_{s_{k}}}}}{2}$.
+
+%&\leq\Delta_{i}\bigg(1+\dfrac{32\rho_{a}\log{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{a}^{2}})}}{\Delta_{i}^{2}}\bigg)\\
+%&\leq\Delta_{i}\bigg\lceil\dfrac{2\log{(\psi T(\dfrac{\Delta_{i}}{2\sqrt{\rho_{a}})^{4})}}}{(\dfrac{\Delta_{i}}{2\sqrt{\rho_{a}}})^{2}}\bigg\rceil \\
+%\text{, since } \sqrt{\rho_{a}\epsilon_{m_{i}}}\leq\dfrac{\Delta_{i}}{2}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+%\textbf{Case b2:} \textit{Optimal arm $a^{*}$ is eliminated by a sub-optimal arm.}\\
+  %
+	%This, can happen in $3$ ways,
+%\newline
+\textbf{Case b2:} \textit{${*}$ is eliminated by some sub-optimal arm in $s^*$} \\
+%In this case, we are concerned with the arm elimination condition only. 
+Optimal arm $a^*$ can get eliminated by some sub-optimal arm $i$ only if arm elimination condition holds, i.e., 
+\begin{align*}
+\hat r_{i} - c_{m_{i}} > \hat{r}^{*}+ c_{m_{i}},
+\end{align*}
+where, as mentioned before, $c_{m_{i}}=\sqrt{\frac{\rho_{a}\log (\psi T\epsilon_{m_{i}}^{2})}{2 n_{m_{i}}}}$.
+From analysis in Case $a1$, notice that, if \eqref{eq:armelim-casea1} holds in conjunction with the above, arm $i$ gets eliminated. Also, recall from Case $a1$ that the events complementary to \eqref{eq:armelim-casea1} have low-probability and can be upper bounded by $\frac{2}{(\psi  T\epsilon_{m_{*}}^{2})^{\rho_{a}}}$. Moreover, a sub-optimal arm that eliminates $*$ has to survive until round $m_*$. In other words, 
+all arms ${j}\in s^{*}$ such that $m_{j} < m_{*}$ are eliminated on or before $m_*$ (this corresponds to case b1). 
+Let, the arms surviving till $m_{*}$ round be denoted by $A^{'}_{s^{*}}$. This leaves any arm $a_{b}$ such that $m_{b}\geq m_{*} $ to still survive and eliminate arm ${*}$ in round $m_{*}$. Let, such arms that survive ${*}$ belong to $A^{''}_{s^{*}}$. Also maximal regret per step after eliminating ${*}$ is the maximal $\Delta_{j}$ among the remaining arms in $A^{''}_{s^{*}}$ with $m_{j}\geq m_{*}$.  Let $m_{b}=\min\lbrace m|\sqrt{\rho_{a}\epsilon_{m}}<\frac{\Delta_{b}}{2}\rbrace$. Let $C_2(x) = \frac{2^{2x+\frac{3}{2}}x^{2x}}{\psi^{x}}$. Hence, the maximal regret after eliminating the arm ${*}$ is upper bounded by, 
+\begin{align*}
+&\sum_{m_{*}=0}^{max_{j\in A^{'}_{s^{*}}}m_{j}}\sum_{\substack{i\in A^{''}_{s^{*}}: \\ m_{i}\geq m_{*}}}\bigg(\dfrac{2}{(\psi  T\epsilon_{m_{*}}^{2})^{\rho_{a}}} \bigg).T\max_{\substack{j\in A^{''}_{s^{*}}: \\ m_{j}\geq m_{*}}}{\Delta}_{j}\\
+&\leq\sum_{m_{*}=0}^{max_{j\in A^{'}_{s^{*}}}m_{j}}\sum_{i\in A^{''}_{s^{*}}:m_{i} \geq m_{*}}\bigg(\dfrac{2}{(\psi  T\epsilon_{m_{*}}^{2})^{\rho_{a}}} \bigg).T.2\sqrt{\rho_{a}\epsilon_{m_{*}}} \\
+&\leq\sum_{m_{*}=0}^{max_{j\in A^{'}_{s^{*}}}m_{j}}\sum_{i\in A^{''}_{s^{*}}:m_{i} \geq m_{*}}4\bigg(\dfrac{T^{1-\rho_{a}}}{\psi^{\rho_{a}}\epsilon_{m_{*}}^{2\rho_{a}-\frac{1}{2}}} \bigg)\\
+&\leq\sum_{i\in A^{''}_{s^{*}}:m_{i} \geq m_{*}}\sum_{m_{*}=0}^{\min{\lbrace m_{i},m_{b}\rbrace}}\bigg(\dfrac{4T^{1-\rho_{a}}}{\psi^{\rho_{a}}2^{-(2\rho_{a}-\frac{1}{2})m_{*}}} \bigg)\\
+&\!\leq\!\!\sum_{i\in A^{'}_{s^{*}}}\frac{4T^{1-\rho_{a}}}{\psi^{\rho_{a}}2^{-(2\rho_{a}-\frac{1}{2})m_{*}}}\! +\!\!\!\sum_{i\in A^{''}_{s^{*}}\setminus A^{'}_{s^{*}}}\!\frac{4T^{1-\rho_{a}}}{\psi^{\rho_{a}}2^{-(2\rho_{a}-\frac{1}{2})m_{b}}} \\
+&\!\leq\!\!\sum_{i\in A^{'}_{s^{*}}}\frac{T^{1-\rho_{a}}\rho_{a}^{2\rho_{a}}2^{2\rho_{a}+\frac{3}{2}}}{\psi^{\rho_{a}}\Delta_{i}^{4\rho_{a}-1}} \!+\!\!\!\sum_{i\in A^{''}_{s^{*}}\setminus A^{'}_{s^{*}}}\!\!\frac{T^{1-\rho_{a}}\rho_{a}^{2\rho_{a}}2^{2\rho_{a}+\frac{3}{2}}}{\psi^{\rho_{a}}b^{4\rho_{a}-1}} \\
+& = \sum_{i\in A^{'}_{s^{*}}}\dfrac{ C_{2}(\rho_{a}) T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a}-1}} +\sum_{i\in A^{''}_{s^{*}}\setminus A^{'}_{s^{*}}}\dfrac{C_{2(\rho_{a})}T^{1-\rho_{a}}}{b^{4\rho_{a}-1}}.
+\end{align*}
+
+%&\text{ since } \sqrt{\rho_{a}\epsilon_{m}}<\dfrac{\Delta_{i}}{2}\\
+%&\leq\sum_{i\in A^{'}}\dfrac{4\rho_{a}^{2\rho_{a}}T^{1-\rho_{a}}*2^{2\rho_{a}-\frac{1}{2}}}{\psi^{\rho_{a}}\Delta_{i}^{4\rho_{a}-1}} +\sum_{i\in A^{''}\setminus A^{'}}\dfrac{4\rho_{a}^{2\rho_{a}}T^{1-\rho_{a}}*2^{2\rho_{a}-\frac{1}{2}}}{\psi^{\rho_{a}}b^{4\rho_{a}-1}} \\
+
+% \begin{align*}
+% &\sum_{i\in A^{'}_{s^{*}}}\bigg(\dfrac{C_{2}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a} -1}} \bigg)+\sum_{i\in A^{''}_{s^{*}}\setminus A^{'}_{s^{*}}}\bigg(\dfrac{C_{2}(\rho_{a})T^{1-\rho_{a}}}{b^{4\rho_{a} -1}} \bigg)
+% \end{align*}
+%We also see that here, we are concerned only within $s^{*}$ because of our assumption that there is only one $a^{*}\in A$ and clusters are fixed.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+\textbf{Case b3:} \textit{$s^{*}$ is eliminated by some sub-optimal cluster.} 
+%\newline
+%Firstly, if conditions of case $b1$ holds then the optimal arm $a^{*}\in C_{g_{s_{k}}}$ will not be eliminated in round $g_{s_{k}}=g_{*}$ or it will lead to the contradiction that $r_{a_{max_{s_{k}}}}>r^{*}$ where $a_{max_{s_{k}}},a^{*}\in C_{g_{s_{k}}}$. In any round $g_{*}$, if the optimal arm $a^{*}$ gets eliminated then for any round from $1$ to $g_{s_{j}}$ all arms $a_{s_{j}}\in C_{g_{s_{k}}},\forall s_{j}\neq s^{*}$ such that $\sqrt{\rho_{s}\epsilon_{g_{s_{k}}}}<\dfrac{\Delta_{a_{s_{j}}}}{2}$ were eliminated according to assumption in case $b1$. Let, the arms surviving till $g_{*}$ round be denoted by $C_{g}^{'}$. This leaves any arm $a_{s_{b}}$ such that $\sqrt{\rho_{s}\epsilon_{g_{s_{b}}}}\geq\dfrac{\Delta_{a_{s_{b}}}}{2}$ to still survive and eliminate arm $a^{*}$ in round $g_{*}$. Let, such arms that survive $a^{*}$ belong to $C_{g}^{''}$. Also maximal regret per step after eliminating $a^{*}$ is the maximal $\Delta_{j}$ among the remaining arms $a_{j}\in B_{m}$ with $g_{s_{j}}\geq g_{
+%*}$.  Let $g_{s_{b}}$ be the round when $\sqrt{\rho_{s}\epsilon_{g_{s_{b}}}}<\dfrac{\Delta_{s_{b}}}{2}$ that is $g_{b}=min\lbrace g|\sqrt{\rho_{s}\epsilon_{g_{s_{b}}}}<\dfrac{\Delta_{b}}{2}\rbrace$ and the cluster $s_{b}$ gets eliminated. Hence, the maximal regret after eliminating the arm $a^{*}$ is upper bounded by, 
+% \begin{align*}
+% &\sum_{g_{*}=0}^{max_{j\in C_{g}^{'}}g_{s_{j}}}\sum_{i\in C_{g}^{''}:g_{s_{k}}>g_{*}}\bigg(\dfrac{2}{(\psi T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}} \bigg).T\max_{j\in C_{g}^{''}:g_{s_{j}}\geq g_{*}}{\Delta}_{a_{s_{j}}}
+% \end{align*}
+
+Let $C_{g}^{'}=\lbrace a_{max_{s_{k}}}\in A^{'}|\forall s_{k}\in S \rbrace$ and $C_{g}^{''}=\lbrace a_{max_{s_{k}}}\in A^{''}|\forall s_{k}\in S \rbrace$. A sub-optimal cluster $s_k$ will eliminate $s^*$ in round $g_*$ only if the cluster elimination condition of Algorithm \ref{alg:clusucb} holds, which is the following when ${*}\in C_{g_{*}}$:
+\begin{align}
+\hat r_{a_{\max_{s_k}}} - c_{g_{*}} > \hat{r}^{*}+ c_{g_{*}}.
+\label{eq:caseb3-cluselim}
+\end{align}
+Notice that when ${*}\notin C_{g_{*}}$, since $r_{a_{max_{s_{k}}}}>r^{*}$, the inequality in \eqref{eq:caseb3-cluselim} has to hold for cluster $s_k$ to eliminate $s^*$.
+As in case $b2$, the probability that a given sub-optimal cluster $s_k$ eliminates $s^*$ is upper bounded by  $\frac{2}{(\psi T\epsilon_{g_{s^{*}}}^{2})^{\rho_{s}}}$ and all sub-optimal clusters with $g_{s_{j}}< g_{*}$ are eliminated before round $g_*$. 
+
+This leaves any arm $a_{\max_{s_{b}}}$ such that $g_{s_{b}}\geq g_{*}$ to still survive and eliminate arm ${*}$ in round $g_{*}$. Let, such arms that survive ${*}$ belong to $C_{g}^{''}$. Hence, following the same way as case $b2$,  the maximal regret after eliminating ${*}$ is,
+ \begin{align*}
+ \!\!\sum_{g_{*}=0}^{\max\limits_{a_{\max_{s_{j}}}\in C_{g}^{'}}g_{s_{j}}}\!\!\!\!\!\sum_{\substack{\scriptsize a_{\max_{s_{k}}}\in C_{g}^{''}: \\ g_{s_{k}} \geq g_{*}}}\bigg(\dfrac{2}{(\psi T\epsilon_{g_{s^{*}}}^{2})^{\rho_{s}}} \bigg)T\max_{\substack{a_{\max_{s_{j}}}\in C_{g}^{''}: \\ g_{s_{j}}\geq g_{*}}}{\Delta}_{a_{\max_{s_{j}}}}
+ \end{align*}
+Using $A'\supset C_{g}^{'}$ and $A''\supset C_{g}^{''}$, we can bound the regret contribution from this case in a similar manner as Case $b2$ as follows:
+% \begin{align*}
+%  & \sum_{g_{*}=0}^{max_{j\in A^{'}}g_{s_{j}}}\sum_{\substack{i\in A^{''}: \\ g_{s_{k}}\geq g_{*}}}\bigg(\dfrac{2}{(\psi T\epsilon_{g_{s^{*}}}^{2})^{\rho_{s}}} \bigg).T\max_{\substack{j\in A^{''}: \\ g_{s_{j}}\geq g_{*}}}{\Delta}_{a_{\max_{s_{j}}}}
+% \end{align*}
+% Like Case $b2$, we can bound the regret as,
+\begin{align*}
+ &\!\!\sum_{i\in A^{'}\setminus A_{s^*}^{'}}\frac{T^{1-\rho_{s}}\rho_{s}^{2\rho_{s}}2^{2\rho_{s}+\frac{3}{2}}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}-1}} 
+ \!+\!\!\!\sum_{i\in A^{''}\setminus A^{'}\cup A_{s^*}^{'}}\!\!\!\!\frac{T^{1-\rho_{s}}\rho_{s}^{2\rho_{s}}2^{2\rho_{s}+\frac{3}{2}}}{\psi^{\rho_{s}}b^{4\rho_{s}-1}} \\
+ & = \sum_{i\in A^{'}\setminus A_{s^*}^{'}}\frac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}} +\sum_{i\in A^{''}\setminus A^{'}\cup A_{s^*}^{'}}\frac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{b^{4\rho_{s}-1}} 
+\end{align*}
+
+%where $A^{'}$ is the set of all the arms across clusters surviving till $g_{*}$ round and $A^{''}$ be the set of all arms across clusters to still survive and eliminate arm $a^{*}$ in round $g_{*}$ respectively
+%But, we know that for any round $g$, elements of $C_{g}$ are the best performers in their respective clusters. 
+%Let, the arms surviving till $g_{*}$ round in $C_{\max \lbrace m_{i},g_{s^{*}}\rbrace}$ be denoted by $C_{g}^{'}$. 
+%\\ & \text{ where } C_2(x) = \frac{2^{2x+\frac{3}{2}}x^{2x}}{\psi^{x}}
+%&\leq\sum_{g_{*}=0}^{max_{j\in A^{'}}g_{s_{j}}}\sum_{i\in A^{''}:g_{s_{k}}>g_{*}}\bigg(\dfrac{2}{(\psi T\epsilon_{g_{s_{k}}}^{2})^{\rho_{s}}} \bigg).T.2\sqrt{\rho_{s}\epsilon_{g_{s_{j}}}} \text{, since }\sqrt{\rho_{s}\epsilon_{g_{s_{j}}}}\leq\dfrac{\Delta_{a_{s_{j}}}}{2}\leq  \dfrac{\Delta_{j}}{2}\text{, as }{r}_{a_{s_{j}}}>{r}_{j},\forall j\in s_{j}\\ 
+%&\leq\sum_{g_{*}=0}^{max_{j\in A^{'}}g_{s_{j}}}\sum_{i\in A^{''}:g_{s_{k}}>g_{*}}\bigg(\dfrac{4T^{1-\rho_{s}}}{\psi^{\rho_{s}}\epsilon_{g_{s_{k}}}^{2\rho_{s} - \frac{1}{2}}} \bigg)\\
+% &\leq\sum_{i\in A^{''}:g_{s_{k}}>g_{*}}\sum_{g_{*}=0}^{\min{\lbrace g_{s_{k}},g_{s_{b}}\rbrace}}\bigg(\dfrac{4T^{1-\rho_{s}}}{\psi^{\rho_{s}}2^{({2\rho_{s} - \frac{1}{2}})g_{*}}} \bigg) \\
+% &\leq\sum_{i\in A^{'}}\bigg(\dfrac{4T^{1-\rho_{s}}}{\psi^{\rho_{s}}2^{({2\rho_{s} - \frac{1}{2}})g_{*}}} \bigg)+\sum_{i\in A^{''}\setminus A^{'}}\bigg(\dfrac{4T^{1-\rho_{s}}}{\psi^{\rho_{s}}2^{({2\rho_{s} - \frac{1}{2}})g_{s_{b}}}} \bigg)\\ 
+% &\leq\sum_{i\in A^{'}}\bigg(\dfrac{4\rho_{s}^{2\rho_{s}}T^{1-\rho_{s}}*2^{2\rho_{s}-\frac{1}{2}}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}-1}} \bigg)+\sum_{i\in A^{''}\setminus A^{'}}\bigg(\dfrac{4\rho_{s}^{2\rho_{s}}T^{1-\rho_{s}}*2^{2\rho_{s}-\frac{1}{2}}}{\psi^{\rho_{s}}b^{4\rho_{s}-1}} \bigg)\\
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%   
+%\textbf{Case b23:} \textit{$a^{*}\notin C_{\max \lbrace m_{i},g_{s_{k}} \rbrace}$ and $s^{*}$ gets eliminated by another sub-optimal cluster arm} 
+%
+%This will be the mirror case of Case $b22$ with $a^{*}\notin C_{g}$. So, let $a_{\max_{s^{*}}}$ satisfies $\hat{r}_{a_{\max_{s^{*}}}}> \hat{r}^{*}$ in round $C_{\max \lbrace m_{i},g_{s^{*}} \rbrace}$. Following the same way as Case $a2$, we can bound the events
+%\begin{align*}
+  %\hat{r}_{a_{\max_{s_{k}}}} \geq r_{a_{\max_{s_{k}}}} +c_{g_{s_{k}}} \text{ and } \hat{r}_{a_{\max_{s^{*}}}} \leq r_{a_{\max_{s^{*}}}} -c_{g_{s_{k}}}
+%\end{align*}
+ %
+%by Chernoff-Hoeffding bound and considering independence of events and show that it cannot be worse than $\bigg(\dfrac{2}{(\psi  T\epsilon_{g_{s^{*}}}^{2})^{\rho_{s}}}\bigg)$ for any $g_{s_{k}}=g_{*}$.
+%%In this case for some sub-optimal arm $a_{\max_{s_{k}}}\in C_{g_{s_{k}}}$, we have to bound the events
+%%	\begin{align*}
+%%  \hat{r}_{a_{\max_{s_{k}}}} \geq r_{a_{\max_{s_{k}}}} +c_{g_{s_{k}}} \text{ and } \hat{r}_{a_{\max_{s^{*}}}} \leq r_{a_{\max_{s^{*}}}} -c_{g_{s_{k}}}
+%%\end{align*} 
+%So $s^{*}$ gets eliminated by $a_{\max_{s_{b}}}$ such that $g_{s_{b}}\geq g_{*}$. Also maximal regret per step after eliminating $a^{*}$ is the maximal $\Delta_{j}$ among the remaining arms $a_{j}\in A^{''}$ with $g_{s_{j}}\geq g_{*}$. Following the same way above we can bound the regret as,
+%%In this case we will consider that the cluster $s^{*}$ containing the optimal arm $a^{*}$ was eliminated by another sub-optimal cluster and $a^{*}\notin C_{g}$. 
+%\begin{align*}
+%&\sum_{i\in A^{'}}\dfrac{T^{1-\rho_{s}}\rho_{s}^{2\rho_{s}}2^{2\rho_{s}+\frac{3}{2}}}{\psi^{\rho_{s}}\Delta_{i}^{4\rho_{s}-1}} +\sum_{i\in A^{''}\setminus A^{'}}\dfrac{T^{1-\rho_{s}}\rho_{s}^{2\rho_{s}}2^{2\rho_{s}+\frac{3}{2}}}{\psi^{\rho_{s}}b^{4\rho_{s}-1}} \\
+%& = \sum_{i\in A^{'}}\dfrac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}} +\sum_{i\in A^{''}\setminus A^{'}}\dfrac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{b^{4\rho_{s}-1}}
+%\end{align*}
+%\newline
+%Combining Cases $b21$, $b22$ and $b23$ as mentioned above we can show,
+ %\begin{align*}
+ %&\underbrace{\sum_{i\in A^{'}_{s^{*}}}\bigg(\dfrac{C_{2}(\rho_{a})T^{1-\rho_{a}}}{\Delta_{i}^{4\rho_{a} -1}} \bigg)+\sum_{i\in A^{''}_{s^{*}}\setminus A^{'}_{s^{*}}}\bigg(\dfrac{C_{2}(\rho_{a})T^{1-\rho_{a}}}{b^{4\rho_{a} -1}} \bigg)}_{\text{case b21}} \\
+ %& + \underbrace{\sum_{i\in A^{'}}\bigg(\dfrac{2C_{2}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}} \bigg)}_{\text{case b22}}+\underbrace{\sum_{i\in A^{''}\setminus A^{'}}\bigg(\dfrac{2C_{2}(\rho_{s})T^{1-\rho_{s}}}{b^{4\rho_{s} -1}} \bigg)}_{\text{case b23}}
+ %\end{align*}
+ 
+\textbf{Case b4:} \textit{${*}$ is not in $C_{\max(m_{i},g_{s_{k}})}$, but belongs to $B_{\max(m_{i},g_{s_{k}})}$.}
+
+In this case the optimal arm ${*}\in s^{*}$ is not eliminated, also $s^{*}$ is not eliminated. So, for all sub-optimal arms $i$ in $A_{s^*}^{'}$ which gets eliminated on or before $\max \lbrace m_{i},g_{s_{k}} \rbrace$ will get pulled no less than $\bigg\lceil\dfrac{2\log{(\psi T\epsilon_{m_{i}}^{2})}}{\epsilon_{m_{i}}}\bigg\rceil$ number of times, which leads to the following bound the contribution to the expected regret, as in Case $b1$:
+\begin{align*}
+ &\sum_{i\in A_{s^*}^{'}}\bigg\lbrace \Delta_{i}+\dfrac{32\rho_{a}\log{(\psi T\dfrac{\Delta_{i}^{4}}{16\rho_{a}^{2}})}}{\Delta_{i}} \bigg\rbrace 
+\end{align*} 
+
+For arms $a_i \notin s^*$, the contribution to the regret cannot be greater than that in Case $b3$. So the regret is bounded by,
+
+\begin{align*}
+\sum_{i\in A^{'}\setminus A_{s^*}^{'}}\dfrac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{\Delta_{i}^{4\rho_{s}-1}} +\sum_{i\in A^{''}\setminus A^{'} \cup A_{s^*}^{'}}\dfrac{C_{2}(\rho_{s})T^{1-\rho_{s}}}{b^{4\rho_{s}-1}}
+\end{align*}
+
+The main claim follows by summing the contributions to the expected regret from each of the cases above.
+\end{proof}
+
+
+
+\subsection{Proof of error probability of AugUCB}
+\label{AppendixAugUCB}
+
+
+\begin{proof}
+According to the algorithm, the number of rounds is $m=\lbrace 0,1,2,.. M\rbrace $ where $M=\bigg\lfloor \frac{1}{2}\log_{2} \frac{T}{e}\bigg\rfloor$. So, $\epsilon_{m}\geq 2^{-M}\geq \sqrt{\frac{e}{T}}$. Also each round $m$ consists of $|B_{m}|\ell_{m}$ timesteps where $\ell_{m} = \left\lceil\frac{2\psi_{m}\log( T \epsilon_{m})}{\epsilon_{m}}\right\rceil$, $B_{m}$ is the set of all surviving arms and let $a=(\log(\frac{3}{16} K\log K))$.
+
+Let $c_{i} = \sqrt{\frac{\rho_{\mu}\psi_{m} \log{(T\epsilon_{m})}}{2 n_{i}}}$ denote the confidence interval, where $n_{i}$ is the number of times an arm $i$ is pulled. Let $\mathcal{A}^{'}=\lbrace i\in \mathcal{A}|\Delta_{i}\geq b\rbrace$, for $b\geq \sqrt{\frac{e}{T}}$. Define $m_{i}=\min\lbrace m| \sqrt{\rho_{\mu}\epsilon_{m}}<\frac{\Delta_{i}}{2}\rbrace$.
+% Let $m_{i}$ be the minimum round such that an arm $i$ gets eliminated such that. 
+
+Let $s_{i}=\sqrt{\frac{\rho_v\psi_{g} \hat{V_{i}} \log{( T\epsilon_{g})}}{4 n_{i}} + \frac{\rho_v\psi_{g} \log{( T\epsilon_{g})}}{4 n_{i}}}$ and 
+% $g_{i}$ be the minimum round that an arm $i$ gets eliminated such that 
+$g_{i}=min\lbrace g| \sqrt{\rho_{v}\epsilon_{g}}<\frac{\Delta_{i}}{2}\rbrace$. 
+%In this proof sub-optimal arms refer to the arms whose $r_{i}$ is lower than the threshold $\tau$.
+
+%At the end of any round $\max\lbrace m_{i},g_{i}\rbrace$, for any arm $i$, two cases are possible.
+
+Let $\xi_{1}$ and $\xi_{2}$ be the favorable event such that,
+\begin{align*}
+\xi_{1}&=\bigg\lbrace \forall i\in \mathcal{A}, \forall m=0,1,2,..,M: |\hat{r_i} - r_i| \leq 2c_i\bigg\rbrace\\
+\xi_{2}&=\bigg\lbrace \forall i\in \mathcal{A}, \forall m=0,1,2,..,M: |\hat{r_i} - r_i| \leq  2s_i\bigg\rbrace
+\end{align*}
+
+So, $\xi_{1}$ and $\xi_{2}$ signifies the event any arm $i$ will get eliminated from $B_m$.
+
+\subsubsection{\textit{Arm i is not eliminated on or before round $\max\lbrace m_{i},g_{i}\rbrace$}}
+
+For any arm $i$, if it is eliminated from active set $B_{m_{i}}$ then one of the below two events has to occur,
+%\begin{small}
+\begin{align}
+\hat{r}_{i} + c_{i} < \tau - c_{i}, \label{eq:armelim-casea}\\
+\hat{r}_{i} - c_{i} > \tau + c_{i}, \label{eq:armelim-caseb}
+\end{align}
+%\end{small}
+For (\ref{eq:armelim-casea}) we can see that it eliminates arms that have performed poorly and removes them  from $B_{m_{i}}$. Similarly, (\ref{eq:armelim-caseb}) eliminates arms from $B_{m_{i}}$ that have performed very well compared to threshold $\tau$.
+
+%Each round consists of $|B_{m_{i}}|\ell_{m_{i}}$ timesteps. 
+In the $m_{i}$-th round an arm $i$ can be pulled no more than $\ell_{m_{i}}$ times. So when $n_{i}=\ell_{m_{i}}$, putting the value of $\ell_{m_{i}}\ge\frac{2\psi_{m_i}\log{( T\epsilon_{m_{i}})}}{\epsilon_{m_{i}}}$ in $c_{i}$ we get, 
+%\begin{small}
+\begin{align*}
+c_{i}
+&=\sqrt{\frac{\rho_{\mu}\psi_{m_i}\epsilon_{m_{i}}\log ( T\epsilon_{m_{i}})}{2 n_{i}}}
+\le\sqrt{\frac{\rho_{\mu}\psi_{m_i}\epsilon_{i}\log ( T\epsilon_{m_{i}})}{2*2 \psi_{m_i} \log( T\epsilon_{m_{i}})}}\\
+& \le\frac{\sqrt{\rho_{\mu}\epsilon_{m_{i}}}}{2}
+% % \leq \sqrt{\rho_{\mu}\epsilon_{m_{i}+1}} 
+< \frac{\Delta_{i}}{4} \text{, as }\rho_{\mu}\in (0,1].
+\end{align*}
+%\end{small}
+Again, for ${i} \in \mathcal{A}^{'}$ for the  elimination condition in (\ref{eq:armelim-casea}), 
+%\begin{small}
+%\begin{align*}
+%\hat{r}_{i} + c_{i}&\leq r_{i} + 2c_{i} = r_{i} + 4c_{i} - 2c_{i} \\
+%&< r_{i} + \Delta_{i} - 2c_{i} = \tau -2c_{i} \leq \tau - c_{i}
+%\end{align*}
+%\end{small}
+%\begin{small}
+\begin{align*}
+\hat{r}_{i} &\leq r_{i} + 2c_{i} = r_{i} + 4c_{i} - 2c_{i} \\
+&< r_{i} + \Delta_{i} - 2c_{i} = \tau -2c_{i}.
+\end{align*}
+%\end{small}
+Similarly, for ${i} \in \mathcal{A}^{'}$ for the  elimination condition in (\ref{eq:armelim-caseb}), 
+%\begin{small}
+\begin{align*}
+\hat{r}_{i} &\geq r_{i} - 2c_{i} = r_{i} - 4c_{i} + 2c_{i} \\
+&> r_{i} - \Delta_{i} + 2c_{i}= \tau + 2c_{i}.
+\end{align*}
+%\end{small}
+
+
+%Now, arm elimination condition is being checked at every timestep, in the $m_{i}$-th round as soon as $n_{i}=\ell_{m_{i}}$, arm $i$ gets eliminated. 
+Applying Chernoff-Hoeffding bound and considering independence of complementary of the event in (\ref{eq:armelim-casea}),
+%\begin{small}
+\begin{align*}
+%\mathbb{P}\lbrace\hat{r}_{i}\geq r_{i} - 2c_{i}\rbrace &\leq exp(-2(\tau + 2c_{i})^{2}n_{i})\\
+&\mathbb{P}\lbrace\hat{r}_{i}> r_{i} + 2c_{i}\rbrace \leq \exp(-4 c_{i}^{2}n_{i})\\
+&\leq \exp(-8 * \dfrac{\rho_{\mu}\psi_{m_i}\log ( T\epsilon_{m_{i}})}{2 n_{i}} *n_{i})\\
+&\leq \exp\big(-4\rho_{\mu}\psi_{m_i}\log ( T\epsilon_{m_{i}})\big)\\
+&\leq \exp\left(-\rho_{\mu}\frac{T\epsilon_{m_{i}}}{32 a^2}\log ( T\epsilon_{m_{i}})\right),\\
+&\text{putting the value of $\psi_{m_i}=\frac{T\epsilon_{m_i}}{128(\log(\frac{3}{16} K\log K))^{2}}$}
+\end{align*}
+%\end{small}
+Similarly for the condition in (\ref{eq:armelim-caseb}), $\mathbb{P}\lbrace\hat{r}_{i}< r_{i} - 2c_{i}\rbrace\leq \exp\left(-\frac{T\rho_{\mu}\epsilon_{m_{i}}}{32 a^2 }\log ( T\epsilon_{m_{i}})\right)$.
+
+Summing the above two expressions, the probability that arm ${i}$ is not eliminated on or before $m_{i}$-th is $\left(2\exp\left(-\frac{T\rho_{\mu}\epsilon_{m_{i}}}{32 a^2 }\log ( T\epsilon_{m_{i}})\right)\right)$. 
+
+
+Again for any arm $i$, if it is eliminated from active set $B_{g_{i}}$ then the below two events have to come true,
+%\begin{small}
+\begin{align}
+\hat{r}_{i} + s_{i} < \tau - s_{i}, \label{eq:armelim-var-casea}\\
+\hat{r}_{i} - s_{i} > \tau + s_{i}, \label{eq:armelim-var-caseb}
+\end{align}
+%\end{small}
+%
+% For \ref{eq:armelim-var-casea} we can see that it eliminates arms that have performed poorly and removes them them from $B_{g_{i}}$. Similarly, \ref{eq:armelim-var-caseb} eliminates arms from $B_{g_{i}}$ that have performed very well compared to threshold $\tau$.
+%But, we know that $\epsilon_{m_{i}}=\epsilon_{g_{i}}$ and round consist of $|B_{g_{i}}|\ell_{g_{i}}$ timesteps. 
+In the $g_{i}$-th round an arm $i$ can be pulled no more than $\ell_{g_{i}}$ times. So when $n_{i}=\ell_{g_{i}}$, putting the value of $\ell_{g_{i}}\ge\frac{2\psi_{m_i}\log{( T\epsilon_{g_{i}})}}{\epsilon_{g_{i}}}$ in $s_{i}$ we get, 
+%\begin{small}
+\begin{align*}
+s_{i}&=\sqrt{\dfrac{\rho_v \psi_{g_i} \hat{V}_{i} \epsilon_{g_{i}}\log ( T\epsilon_{g_{i}})}{4 n_{i}} + \dfrac{\rho_v \psi_{g_i}\log{( T\epsilon_{g_{i}})}}{4 n_{i}}} \\
+&\leq \sqrt{\dfrac{\rho_v\psi_{g_i} \epsilon_{g_{i}}\log ( T\epsilon_{g_{i}})}{4*2 \log(\psi_{g_i} T\epsilon_{g_{i}})} + \dfrac{\rho_v \psi_{g_i}\epsilon_{g_{i}} \log{( T\epsilon_{g_{i}})}}{4*2\psi_{g_i} \log( T\epsilon_{g_{i}})} } \text{, as }\hat{V}_{i}\in [0,1].\\
+& \leq \sqrt{\dfrac{\rho_v \epsilon_{g_{i}}}{8} + \dfrac{\rho_v \epsilon_{g_{i}}}{8} } \leq \dfrac{\sqrt{\rho_v \epsilon_{g_{i}}}}{2}< \dfrac{\Delta_{i}}{4} \text{, as }\rho_v\in (0,1].
+%& \leq \sqrt{\rho_v \epsilon_{g_{i}+1}} < \dfrac{\Delta_{i}}{4} \text{, as }\rho_v\in (0,1].
+\end{align*}
+%\end{small}
+
+Again, for ${i} \in \mathcal{A}^{'}$ for the elimination condition in (\ref{eq:armelim-var-casea}),
+%\begin{small}
+\begin{align*}
+\hat{r}_{i} &\leq r_{i} + 2s_{i} = r_{i} + 4s_{i} - 2s_{i} \\
+&< r_{i} + \Delta_{i} - 2s_{i} = \tau -2s_{i} % \leq \tau - s_{i}
+\end{align*}
+%\end{small} 
+
+
+Also, for ${i} \in \mathcal{A}^{'}$ for the elimination condition in (\ref{eq:armelim-var-caseb}), 
+%\begin{small}
+\begin{align*}
+\hat{r}_{i}&\geq r_{i} - 2s_{i} = r_{i} - 4s_{i} + 2s_{i} \\
+&> r_{i} - \Delta_{i} + 2s_{i}\geq \tau + 2s_{i} % \geq \tau + s_{i}
+\end{align*}
+%\end{small}
+
+
+%Since, arm elimination condition is being checked at every timestep, in the $g_{i}$-th round as soon as $n_{i}=\ell_{g_{i}}$, arm $i$ gets eliminated. 
+Applying Bernstein inequality and considering independence of complementary of the event in (\ref{eq:armelim-var-casea}),
+%\begin{small}
+\begin{align}
+&\mathbb{P}\lbrace\hat{r}_{i}> r_{i} + 2s_{i}\rbrace\\
+&\leq \mathbb{P}\bigg\lbrace \hat{r}_{i} > r_{i}+ ( 2\sqrt{\dfrac{\rho_v\psi_{g_i} \hat{V}_{i}\log( T\epsilon_{g_{i}}) + \rho_v\psi_{g_i} \log{( T\epsilon_{g_{i}})}}{4n_{i}} }) \bigg\rbrace\\
+&\leq \mathbb{P}\bigg\lbrace \hat{r}_{i} > r_{i}+ (2\sqrt{\dfrac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]\log( T\epsilon_{g_{i}})}{4n_{i}}})\bigg\rbrace \label{eq:prob_eq1}\\ 
+&+ \mathbb{P}\bigg\lbrace \hat{V}_{i}\geq \sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}\bigg\rbrace \label{eq:prob_eq2}
+\end{align}
+%\end{small}
+ 
+ 
+Now, we know that in the $g_{i}$-th round,
+%\begin{small}
+\begin{align*}
+& 2\sqrt{\dfrac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}]\log( T\epsilon_{g_{i}})}{4n_{i}} + \dfrac{\rho_v\psi_{g_i}  \log{(T\epsilon_{g_{i}})}}{4 n_{i}}}\\ &\leq  2\sqrt{\dfrac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}]\log( T\epsilon_{g_{i}})}{\frac{8\psi_{g_i}\log( T \epsilon_{g_{i}})}{\epsilon_{g_{i}}}} + \dfrac{\rho_v\psi_{g_i} \log{( T\epsilon_{g_{i}})}}{\frac{8\psi_{g_i}\log( T \epsilon_{g_{i}})}{\epsilon_{g_{i}}}}}\\
+& \leq \dfrac{\sqrt{\rho_v \epsilon_{g_{i}}[\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]}}{2}\leq \sqrt{\rho_v \epsilon_{g_{i}}}
+\end{align*}
+%\end{small}
+
+
+For the term in (\ref{eq:prob_eq1}), by applying Bernstein inequality, we can write as,
+%\begin{small}
+\begin{align*}
+&\mathbb{P}\bigg\lbrace \hat{r}_{i}> r_{i} + \bigg(2\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]\log( T\epsilon_{g_{i}})}{4n_{i}}  } \bigg)\bigg\rbrace\\
+%%%%%%%%%%%%%%%%%%%%%%%%
+&\leq \exp\bigg(- \dfrac{\bigg(2\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} +1]\log( T\epsilon_{g_{i}})}{4n_{i}}}\bigg)^{2}n_{i}}{2\sigma_{i}^{2}+\frac{4}{3}\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1]\log( T\epsilon_{g_{i}})}{4n_{i}}}}\bigg) \\
+%%%%%%%%%%%%%%%%%%%%%%%
+&\leq \exp\bigg(- \dfrac{\bigg(\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]\log( T\epsilon_{g_{i}})\bigg)}{2\sigma_{i}^{2}+\frac{2}{3}\sqrt{\rho_v \epsilon_{g_{i}}}} \bigg)\\
+&\leq \exp\bigg(- \dfrac{3\rho_v\psi_{g_i}}{2} \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log( T\epsilon_{g_{i}}) \bigg)\\
+%%%%%%%%%%%%%%%%%%%%%%%
+&\leq \exp\left(- \dfrac{3\rho_v T\epsilon_{g_i}}{256 a^2} \left(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\right) \log( T\epsilon_{g_{i}}) \right),\\
+&\text{ putting the value of $\psi_{g_i}=\frac{T\epsilon_{g_i}}{128(\log(\frac{3}{16} K\log K))^{2}}$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{align*}
+%&\mathbb{P}\bigg\lbrace \hat{r}_{i}> r_{i} + \bigg(2\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]\log( T\epsilon_{g_{i}})}{4n_{i}}  } \bigg)\bigg\rbrace\\
+%&\leq \exp\bigg(- \dfrac{\bigg(2\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}]\log( T\epsilon_{g_{i}})}{4n_{i}} + \frac{\rho_v\psi_{g_i} \log{( T\epsilon_{g_{i}})}}{4 n_{i}}}\bigg)^{2}n_{i}}{2\sigma_{i}^{2}+\frac{4}{3}\sqrt{\frac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}]\log( T\epsilon_{g_{i}})}{4n_{i}}+\frac{\rho_v\psi_{g_i} \log{( T\epsilon_{g_{i}})}}{4 n_{i}}}}\bigg) \\
+%&\leq \exp\bigg(- \dfrac{\bigg(\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} + 1]\log( T\epsilon_{g_{i}})\bigg)}{2\sigma_{i}^{2}+\frac{2}{3}\sqrt{\rho_v \epsilon_{g_{i}}}} \bigg)\\
+%&\leq \exp\bigg(- \dfrac{3\rho_v\psi_{g_i}}{2} \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log( T\epsilon_{g_{i}}) \bigg)\\
+%&\leq \exp\left(- \dfrac{3\rho_v T\epsilon_{g_i}}{16 K\log K} \left(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\right) \log( T\epsilon_{g_{i}}) \right),\\
+%&\text{ putting the value of $\psi_{g_i}=\frac{T\epsilon_{g_i}}{128(\log(\frac{3}{16} K\log K))^{2}}$}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{align*}
+%\end{small}
+ 
+  
+For the term in (\ref{eq:prob_eq2}), by applying Bernstein inequality, we can write as,
+%\begin{small}
+\begin{align*}
+&\mathbb{P}\bigg\lbrace \hat{V}_{i}\geq \sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}\bigg\rbrace\\
+&\leq \mathbb{P}\bigg\lbrace \dfrac{1}{n_{i}}\sum_{t=1}^{n_{i}}(x_{i,t}-r_{i})^{2}-(\hat{r}_{i}-r_{i})^{2}\geq \sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}\bigg\rbrace\\
+&\leq \mathbb{P}\bigg\lbrace \dfrac{\sum_{t=1}^{n_{i}}(x_{i,t}-r_{i})^{2}}{n_{i}}\geq \sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}} \bigg\rbrace\\
+&\leq \mathbb{P}\bigg\lbrace \dfrac{\sum_{t=1}^{n_{i}}(x_{i,t}-r_{i})^{2}}{n_{i}}\geq \sigma_{i}^{2} +\\
+&\bigg(2\sqrt{\dfrac{\rho_v\psi_{g_i} [\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}]\log( T\epsilon_{g_{i}})}{4n_{i}}+\frac{\rho_v\psi_{g_i}  \log{(T\epsilon_{g_{i}})}}{4 n_{i}}}\bigg)\bigg\rbrace\\
+&\leq \exp\bigg(- \dfrac{3\rho_v\psi_{g_i}}{2} \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log( T\epsilon_{g_{i}}) \bigg) \\
+&\leq \exp\bigg(- \dfrac{3\rho_vT\epsilon_{g_i}}{256 a^2 } \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log( T\epsilon_{g_{i}}) \bigg),\\
+&\text{ putting the value of $\psi_{g_i}=\frac{T\epsilon_{g_i}}{128(\log(\frac{3}{16} K\log K))^{2}}$}
+\end{align*}
+%\end{small}
+ 
+  
+Similarly, the condition for the complementary event for the elimination case \ref{eq:armelim-var-caseb} holds such that $\mathbb{P}\lbrace\hat{r}_{i}< r_{i} - 2s_{i}\rbrace \leq 2\exp\left(- \frac{3T\rho_v\epsilon_{g_{i}}}{256 a^2 } \left(\frac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\right) \log( T\epsilon_{g_{i}}) \right)$.
+
+Again  summing the above expressions, the probability that an arm ${i}$ is not eliminated on or before $g_{i}$-th round based on the (\ref{eq:armelim-var-casea}) and (\ref{eq:armelim-var-caseb}) elimination condition is  $4\exp\left(- \frac{3T\rho_v\epsilon_{g_{i}}}{256 a^2 } \left(\frac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\right) \log( T\epsilon_{g_{i}}) \right)$. 
+  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Not Required for probability of error for AugUCB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%We start with an upper bound on the number of plays $\delta_{\max\lbrace m_{i}, g_{i}\rbrace}$ in the $\max\lbrace m_{i}, g_{i}\rbrace$-th round. We know that the total number of arms surviving in the $\max\lbrace m_{i}, g_{i}\rbrace$-th arm is, 
+%
+%\begin{small}
+%\begin{align*}
+%&|B_{\max\lbrace m_{i}, g_{i}\rbrace}|=2K\exp\bigg(-4\rho_{\mu}\log (\psi T\epsilon_{m_{i}}^{2})\bigg)\\ 
+%& + 4K\exp\bigg(- \frac{3\rho_v}{2} \big(\frac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\big) \log(\psi T\epsilon_{g_{i}}^{2}) \bigg)
+%\end{align*}     
+%\end{small}
+%
+%
+%Again for AugUCB, we know that the number of pulls allocated for each surviving arm $i$ in the $m_{i}$-th round is $\ell_{m_{i}}=\frac{2\log (\psi T \epsilon_{m_{i}}^{2})}{\epsilon_{m_{i}}}$ or for the $g_{i}$-th round is $\ell_{g_{i}}=\frac{2\log (\psi T \epsilon_{g_{i}}^{2})}{\epsilon_{g_{i}}}$. Therefore, the proportion of plays $\delta_{\max\lbrace m_{i}, g_{i}\rbrace}$ in the $\max\lbrace m_{i}, g_{i}\rbrace$-th round can be written as,
+%
+%\begin{small}
+%\begin{align*}
+%&\delta_{\max\lbrace m_{i}, g_{i}\rbrace}=(|B_{m_{i}}|.\ell_{m_{i}}) + (|B_{g_{i}}|.\ell_{g_{i}})\\
+%&\leq 2K\exp\bigg(-4\rho_{\mu}\log (\psi T\epsilon_{m_{i}}^{2})\bigg).\dfrac{2\log (\psi T \epsilon_{m_{i}}^{2})}{\epsilon_{m_{i}}}\\
+% & + 4K\exp\bigg(- \dfrac{3\rho_v}{2} \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log(\psi T\epsilon_{g_{i}}^{2})\bigg).\dfrac{2\log (\psi T \epsilon_{g_{i}}^{2})}{\epsilon_{g_{i}}} \\
+%& \leq \dfrac{4K\log (\psi T \epsilon_{m_{i}}^{2})}{\epsilon_{m_{i}}}\exp\bigg(-4\rho_{\mu}\log (\psi T\epsilon_{m_{i}}^{2})\bigg)\\
+%& + \dfrac{8K\log (\psi T \epsilon_{g_{i}}^{2})}{\epsilon_{g_{i}}}\exp\bigg(- \dfrac{3\rho_v}{2} \bigg(\dfrac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\bigg) \log(\psi T\epsilon_{g_{i}}^{2}) \bigg)
+%\end{align*}
+%\end{small}
+
+%Now, in the $\max\lbrace m_{i}, g_{i}\rbrace$-th round $\sqrt{\rho_{\mu}\epsilon_{m_{i}}}\leq \frac{\Delta_{i}}{2}$ or $\sqrt{\rho_v\epsilon_{g_{i}}}\leq \frac{\Delta_{i}}{2}$. Hence,
+%
+%\begin{small}
+%\begin{align*}
+%&\delta_{\max\lbrace m_{i},g_{i}\rbrace} \leq \dfrac{4K\log (\psi T \frac{\Delta_{i}^{4}}{16\rho_{\mu}^{2}})}{\frac{\Delta_{i}^{2}}{4\rho_{\mu}}}\exp\bigg(-4\rho_{\mu}\log (\psi T\frac{\Delta_{i}^{4}}{16\rho_{\mu}^{2}})\bigg)\\
+%& + \dfrac{8K\log (\psi T \frac{\Delta_{i}^{4}}{16\rho_{v}^{2}})}{\frac{\Delta_{i}^{2}}{4\rho_{v}}}\exp\bigg(- \dfrac{3\rho_v}{2} \bigg(\dfrac{\sigma_{i}^{2}+\frac{\Delta_{i}}{2}+1}{3\sigma_{i}^{2}+\frac{\Delta_{i}}{2}}\bigg) \log(\psi T\frac{\Delta_{i}^{4}}{16\rho_{v}^{2}}) \bigg)\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%&\leq 16 C_1\exp\bigg(-4\rho_{\mu}\log (\psi T\frac{\Delta_{i}^{4}}{16\rho_{\mu}^{2}})\bigg)\\
+%& + 32C_2\exp\bigg(- \dfrac{3\rho_v}{2} \bigg(\dfrac{2\sigma_{i}^{2}+\Delta_{i}+2}{6\sigma_{i}^{2}+\Delta_{i}}\bigg) \log(\psi T\frac{\Delta_{i}^{4}}{16\rho_{v}^{2}}) \bigg)\\
+%&\text{where $C_1=\frac{K\rho_{\mu}\log (\psi T \frac{\Delta_{i}^{4}}{16\rho_{\mu}^{2}})}{\Delta_{i}^{2}}$ and $C_2= \frac{K\rho_v\log (\psi T \frac{\Delta_{i}^{4}}{16\rho_{v}^{2}})}{\Delta_{i}^{2}}$}\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%&\leq 16 C_1\exp\bigg(-4\rho_{\mu}\log (\psi T\frac{\Delta_{i}^{4}}{16\rho^{2}})\bigg)
+% + 32C_2\exp\bigg(- \dfrac{3\rho_v}{2} \log(\psi T\frac{\Delta_{i}^{4}}{16\rho_{v}^{2}}) \bigg)
+%\end{align*}
+%\end{small}
+%
+%%Summing over all rounds $m=0,1,..,M$,
+%Now, putting the values of $\psi$, $\rho_{\mu}$, $\rho_v$ and taking $\Delta_{i}\geq\min_{i\in A}\Delta=\sqrt{\frac{K\log K}{T}}\geq \sqrt{\frac{e}{T}},\forall i\in A$( see \cite{auer2010ucb}), 
+%
+%\begin{small}
+%\begin{align*}
+%& \delta_{\max\lbrace m_{i}, g_{i}\rbrace}= \bigg\lbrace 16 C_1\exp\bigg(-4\rho_{\mu}\log (\psi T\frac{\Delta_{i}^{4}}{16\rho_{\mu}^{2}})\bigg)\\
+%& + 32C_2\exp\bigg(- \frac{3\rho_v}{2} \log(\psi T\frac{\Delta_{i}^{4}}{16\rho_{v}^{2}}) \bigg) \bigg\rbrace\\
+%%%%%%%%%%%%%%%%%%%%%
+%&\leq \bigg\lbrace  \frac{2K\log ( T^2 \frac{4\Delta_{i}^{4}}{\log K})}{\Delta_{i}^{2}}\exp\bigg(-\frac{1}{2}\log ( T^2\frac{4\Delta_{i}^{4}}{\log K})\bigg)\\
+%& + \frac{32K\log ( T^2 \frac{9\Delta_{i}^{4}}{\log K})}{3\Delta_{i}^{2}}\exp\bigg(- \frac{1}{2} \log( T^2 \frac{9\Delta_{i}^{4}}{\log K}) \bigg) \bigg\rbrace\\
+%%%%%%%%%%%%%%%%%%%%%
+%&\leq \bigg\lbrace  \frac{4K\log ( T \frac{2\Delta_{i}^{2}}{\sqrt{\log K}})}{\Delta_{i}^{2}}\exp\bigg(-\log ( T\frac{2\Delta_{i}^{2}}{\sqrt{\log K}})\bigg)\\
+%& + \frac{64K\log ( T \frac{3\Delta_{i}^{2}}{\sqrt{\log K}})}{3\Delta_{i}^{2}}\exp\bigg(- \log( T \frac{3\Delta_{i}^{2}}{\sqrt{\log K}}) \bigg) \bigg\rbrace\\
+%%%%%%%%%%%%%%%%%%%%%
+%&\leq \bigg\lbrace  \frac{4KT\log ( \frac{2 K\log K}{\sqrt{\log K}})}{K\log K}\exp\bigg(-\log ( \frac{2K\log K}{\sqrt{\log K}})\bigg)\\
+%& + \frac{64TK\log (\frac{3 K\log K}{\sqrt{\log K}})}{3 K\log K}\exp\bigg(- \log( \frac{3 K\log K}{\sqrt{\log K}}) \bigg) \bigg\rbrace\\
+%%%%%%%%%%%%%%%%%%%%
+%&\leq \bigg\lbrace  \frac{2T\log (2 K\sqrt{\log K})}{K (\log K)^{3/2}}
+% + \frac{22T\log ( K\sqrt{\log K})}{ K(\log K)^{3/2}}\bigg) \bigg\rbrace\\
+%\end{align*}
+%\end{small}
+%Now we know that till $m_i$-th round $2c_i > \frac{\Delta_i}{2}$  or till $g_i$ th round $2s_i > \frac{\Delta_i}{2}$. Hence, for the $i$-th arm we can bound the probability of error for any round $m$ by applying Chernoff-Hoeffding and Bernstein inequality,
+%\begin{small}
+%\begin{align*}
+% \Pb\lbrace \xi_1\rbrace  + \Pb\lbrace \xi_2 \rbrace &\geq 1-(\Pb\lbrace |\hat{r}_i -r_i| > 2c_i \rbrace + \Pb\lbrace |\hat{r}_i -r_i| > 2s_i \rbrace)\\ 
+%&\geq 1-\left(\Pb\lbrace |\hat{r}_i - r_i| > \frac{\Delta_i}{2} \rbrace + \Pb\lbrace |\hat{r}_i - r_i| > \frac{\Delta_i}{2} \rbrace\right) \\
+%&\geq 1-\big(2\exp( -\frac{\Delta_{i}^{2}}{4}n_i ) + 2\exp(- \frac{\Delta_{i}^{2}}{8\sigma_{i}^{2}+ \frac{4}{3}\Delta_i}n_i)\big)\\
+%&\geq 1-\bigg(2\exp( -\frac{\Delta_{i}^{2}}{4}\delta_{m_{i}} ) + 2\exp(- \frac{\Delta_{i}^{2}}{8\sigma_{i}^{2}+ \frac{4}{3}\Delta_i}\delta_{g_{i}})\bigg)
+%\end{align*}
+%\end{small}
+%Now, we know that $\E[\Ls(T)]\le1- (\Pb\lbrace \xi_1\rbrace  + \Pb\lbrace \xi_2 \rbrace) $. Summing over all arms $K$ and over all rounds $m=0,1,2,..,M$ we get that,
+%\begin{small}
+%\begin{align*}
+%&\E[\Ls(T)] \leq \sum_{i=1}^{K}\sum_{m=0}^{M}\bigg\lbrace 2\exp\bigg( -\frac{\Delta_{i}^{2}}{4}.\frac{2T\log (2 K\sqrt{\log K})}{K (\log K)^{3/2}}\bigg)\\
+%& + 2\exp\bigg(- \frac{\Delta_{i}^{2}}{8\sigma_{i}^{2}+ \frac{4}{3}\Delta_i}.\frac{22T\log ( K\sqrt{\log K})}{ K(\log K)^{3/2}} \bigg)\bigg\rbrace\\
+%%%%%%%%%%%%%%%%
+%&\E[\Ls(T)] \leq K\left\lceil\log_2\frac{T}{e}\right\rceil\bigg\lbrace\exp\bigg( -\frac{1}{i\max_{i}\Delta_{i}^{-2}}.\frac{T\log (2 K\sqrt{\log K})}{2K (\log K)^{3/2}}\bigg)\\
+%& + \exp\bigg(- \frac{3}{i\max_i(6\sigma_{i}^{2}+ \Delta_i)\Delta_{i}^{-2}}.\frac{5T\log ( K\sqrt{\log K})}{ K(\log K)^{3/2}} \bigg)\bigg\rbrace\\
+%%%%%%%%%%%%%%%%
+%&\E[\Ls(T)] \leq K\left(\log_2\frac{T}{e}+1\right)\bigg\lbrace\exp\bigg( -\frac{T\log (2 K\sqrt{\log K})}{2 H_2 K (\log K)^{3/2}}\bigg)\\
+%& + \exp\bigg(- \frac{5T\log ( K\sqrt{\log K})}{H_{2}^{\sigma} K(\log K)^{3/2}} \bigg)\bigg\rbrace\\
+%\end{align*}
+%\end{small}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%Not Required for probability of error for AugUCB
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Hence, for the $i$-th arm we can bound the probability of it getting eliminated till $\max\lbrace m_i , g_i  \rbrace$-th round by,
+%\begin{small}
+\begin{align*}
+ & \Pb\lbrace \text{$i\in \mathcal{A}^{'}$ getting eliminated on or before round $\max\lbrace m_i, g_i\rbrace$} \rbrace \\
+&\geq 1-(\Pb\lbrace |\hat{r}_i -r_i| > 2c_i \rbrace + \Pb\lbrace |\hat{r}_i -r_i| > 2s_i \rbrace)\\
+&\geq 1- \bigg( \left(2\exp\left(-\frac{T\rho_{\mu}\epsilon_{m_{i}}}{32 a^2}\log ( T\epsilon_{m_{i}})\right)\right)\\
+& + 4\exp\left(- \frac{3T\rho_v\epsilon_{g_{i}}}{256 a^2 } \left(\frac{\sigma_{i}^{2}+\sqrt{\rho_{v}\epsilon_{g_{i}}}+1}{3\sigma_{i}^{2}+\sqrt{\rho_v \epsilon_{g_{i}}}}\right) \log( T\epsilon_{g_{i}}) \right)\bigg)
+\end{align*}
+%\end{small}
+Now, in the $m_i$-th round or in the $g_i$-th round we know that $\frac{\Delta_i}{4}\leq\sqrt{\epsilon_{m_{i}}\rho_{\mu}}<\frac{\Delta_i}{2}$ or  $\frac{\Delta_i}{4}\leq\sqrt{\epsilon_{g_{i}}\rho_{v}}<\frac{\Delta_i}{2}$.
+%\begin{small}
+\begin{align*}
+&\Pb\lbrace \text{$i\in \mathcal{A}^{'}$ getting eliminated on or before round $\max\lbrace m_i, g_i\rbrace$} \rbrace\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+& \geq 1- \bigg( 2\exp\left(-\frac{T\rho_{\mu}\frac{\Delta_{i}^{2}}{16\rho_{\mu}}}{32 a^2 }\log ( T\frac{\Delta_{i}^{2}}{16\rho_{\mu}})\right)\\
+& + 4\exp\left(- \frac{3T\rho_v\frac{\Delta_{i}^{2}}{16\rho_{v}}}{256 a^2} \left(\frac{\sigma_{i}^{2}+\frac{\Delta_{i}}{4}+1}{3\sigma_{i}^{2}+\frac{\Delta_{i}}{4}}\right) \log( T\frac{\Delta_{i}^{2}}{16\rho_{v}}) \right)\bigg)\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+&\geq 1-\bigg( 2\exp\left(-\frac{T\Delta_{i}^{2}}{64a}\log( \frac{T\Delta_{i}^{2}}{2})\right) \\
+& + 4\exp\left(- \frac{3T\Delta_{i}^{2}}{4096 a^2} \left(\frac{4\sigma_{i}^{2}+\Delta_{i}+4}{12\sigma_{i}^{2}+\Delta_{i}}\right) \log( \frac{3}{16} T\Delta_{i}^{2}) \right)\bigg),\\
+&\text{putting the values of $\rho_{\mu}$ and $\rho_{v}$.}
+\end{align*}
+%\end{small}
+Again, $(\Pb\lbrace \xi_1\rbrace  + \Pb\lbrace \xi_2 \rbrace)\geq 1- \sum_{i=1}^{K}\sum_{m=0}^{\max\lbrace m_{i} ,g_{i}\rbrace}\Pb\lbrace i\in \mathcal{A}^{'}$ getting eliminated on or before round $\max\lbrace m_i, g_i\rbrace \rbrace $.
+Also, $\E[\Ls(T)]\le 1- (\Pb\lbrace \xi_1\rbrace  + \Pb\lbrace \xi_2 \rbrace) $. We know from \cite{bubeck2011pure} and \cite{auer2010ucb} that the function $x\in [0,1]\mapsto x\exp(-Cx^2)$ is  decreasing on $[1/\sqrt{2C},1]$ for any $C>0$. So, taking $C=\lfloor e/T\rfloor$ and putting $\min_{i\in \mathcal{A}}\Delta_i =\Delta =\sqrt{\frac{K\log K}{T}} > \sqrt{\frac{e}{T}},\forall i\in \mathcal{A}$ we get that,
+%and summing over all arms $K$ and over all rounds $m=0,1,2,..,\max\lbrace m_{i} ,g_{i}\rbrace$
+%\begin{small}
+\begin{align*}
+&\E[\Ls(T)] \leq \sum_{i=1}^{K}\sum_{m=0}^{\max\lbrace m_{i} ,g_{i}\rbrace}\bigg\lbrace \bigg( 2\exp\left(-\frac{T\Delta_{i}^{2} \log(\frac{T\Delta_{i}^{2}}{2})}{64 a^2 }\right) \\
+& + 4\exp\left(- \frac{3T\Delta_{i}^{2}}{4096 a^2 } \left(\frac{4\sigma_{i}^{2}+\Delta_{i}+4}{12\sigma_{i}^{2}+\Delta_{i}}\right) \log( \frac{3}{16} T\Delta_{i}^{2}) \right)\bigg\rbrace\\
+%%%%%%%%%%%%%%%%
+& \leq K\sum_{m=0}^{M}\bigg\lbrace 2\exp\bigg( -\frac{T}{i\min_{i}\Delta_{(i)}^{-2}}.\frac{\log (\frac{1}{2} K\log K)}{64 a^2 }\bigg)\\
+& + 4\exp\bigg(- \frac{12T}{i\min_i(12\sigma_{(i)}^{2}+ \Delta_{(i)})\Delta_{(i)}^{-2}}.\frac{\log (\frac{3}{16} K\log K)}{4096 a^2 } \bigg)\bigg\rbrace\\
+%%%%%%%%%%%%%%%
+&\leq K\left(\log_2\frac{T}{e}+1\right)\bigg\lbrace\exp\bigg( -\frac{T\log ( \frac{1}{2} K\log K)}{ 64 H_2 a^2}\bigg)\\
+& + 2\exp\bigg(- \frac{T\log ( \frac{3}{16} K\log K)}{4096 H_{2}^{\sigma} a^2} \bigg)\bigg\rbrace\\
+%%%%%%%%%%%%%%%
+&\leq K\left(\log_2\frac{T}{e}+1\right)\bigg\lbrace\exp\bigg( -\frac{T\log ( \frac{1}{2} K\log K)}{ 64 H_2 (\log(\frac{3}{16} K\log K))^{2}}\bigg)\\
+& + 2\exp\bigg(- \frac{T\log ( \frac{3}{16} K\log K)}{4096 H_{2}^{\sigma} (\log(\frac{3}{16} K\log K))^{2}} \bigg)\bigg\rbrace\\
+&\leq K\left(\log_2\frac{T}{e}+1\right)\bigg\lbrace\exp\bigg( -\frac{T}{ 64 H_2 (\log(\frac{3}{16} K\log K))}\bigg)\\
+& + 2\exp\bigg(- \frac{T}{4096 H_{2}^{\sigma} (\log(\frac{3}{16} K\log K))} \bigg)\bigg\rbrace\\
+\end{align*}
+%\end{small}
+\end{proof}
+
+
+
+\subsection{Empirical performance of ClusUCB}
 \label{AppendixA}
 \begin{figure}[!tbp]
     \centering
@@ -87,14 +725,14 @@ The regret is averaged over $100$ independent runs and is shown in Figure \ref{f
 The second experiment is conducted over a testbed of $100$ arms involving Gaussian reward distribution with expected rewards of the arms $r_{i_{{i}\neq {*}:1-33}}=0.1$, $r_{i_{{i}\neq {*}:34-99}}=0.6$ and $r^{*}_{i=100}=0.9$ with variance set at $\sigma_{i}^{2} = 0.3,\forall i\in A$. The horizon $T$ is set for a large duration of $2\times 10^{5}$ and the regret is averaged over $100$ independent runs and is shown in Figure \ref{fig:2}. In this case, in addition to EClusUCB, we also show the performance of ClusUCB algorithm. From the results in Figure \ref{fig:2}, we observe that EClusUCB outperforms ClusUCB as well as MOSS, UCB1, UCB-Improved and Median-Elimination($\epsilon=0.1,\delta=0.1$). But ClusUCB and UCB-Improved behaves almost similaryly in this environment. Also the performance of UCB-Improved is poor in comparison to other algorithms, which is probably because of pulls wasted in initial exploration whereas EClusUCB with the choice of $\psi, \rho_{a}$ and $\rho_{s}$ performs much better. 
 %More experiments are shown in Appendix \ref{App:MoreExp}.
 
-\subsection*{Appendix B}
+\subsection{Empirical performance of AugUCB}
 \label{AppendixB}
 In this section we compare the empirical performance of AugUCB against APT, Uniform Allocation, CSAR, UCBE and UCBEV algorithm. The threshold $\tau$ is set at $0.5$ for all experiments. Each algorithm is run independently $500$ times for $10000$ timesteps and the output set of arms suggested by the algorithms at every timestep is recorded. The output is considered erroneous if the correct set of arms is not $i=\lbrace 6,7,8,9,10 \rbrace$ (true for all the experiments). The error percentage over $500$ runs is plotted against $10000$ timesteps. For the uniform allocation algorithm, for each $t=1,2,..,T$ the arms are sampled uniformly. For UCBE algorithm (\cite{audibert2009exploration}) which was built for single best arm identification, we modify it according to \cite{locatelli2016optimal} to suit the goal of finding arms above the threshold $\tau$. So the exploration parameter $a$ in UCBE is set to $a=\frac{T-K}{H_1}$. Again, for UCBEV, following \cite{gabillon2011multi}, we modify it such that the exploration parameter $a = \frac{T-2K}{H_{1}^{\sigma}}$. Then for each timestep $t=1,2,..,T$ we pull the arm that minimizes $\lbrace |\hat{r}_{i} -\tau|-\sqrt{\frac{a}{n_{i}}} \rbrace$, where $n_{i}$ is the number of times the arm $i$ is pulled till $t-1$ timestep and $a$ is set as mentioned above for UCBE and UCBEV respectively. Also, APT is run with $\epsilon=0.05$, which denotes the precision with which the algorithm suggests the best set of arms and we modify CSAR as per \cite{locatelli2016optimal} such that it behaves as a Successive Reject algorithm whereby it rejects the arm farthest from $\tau$ after each phase. For AugUCB we take $\rho_{\mu}=\frac{1}{8}$ and $\rho_v=\frac{1}{3}$ as in Theorem \ref{Result:Theorem:1}.
 %So when $\epsilon$ is  set to $0$ APT has to suggest the exact set of arms above the threshold.
 %where $H_{1}^{\sigma}=\sum_{i=1}^{K}\frac{\sigma_{i}+\sqrt{\sigma_{i}^{2}+(16/3)\Delta_{i}}}{\Delta_{i}^{2}}$	
 	The first experiment is conducted on a testbed of $100$ arms involving Gaussian reward distribution with expected rewards of the arms $r_{1:4}=0.2+(0:3)*0.05$, $r_{5}=0.45$, $r_{6}=0.55$, $r_{7:10}=0.65+(0:3)*0.05$ and $r_{11:100}$=0.4. The means of first $10$ arms are set as arithmetic progression. Variance is set as $\sigma_{1:5}^{2}=0.5$ and $\sigma_{6:10}^{2}=0.6$. Then $\sigma_{11:100}^{2}$ is chosen uniform randomly between $0.38-0.42$. The means in the testbed are chosen in such a way that any algorithm has to spend a significant amount of budget to explore all the arms and variance is chosen in such a way that the arms above $\tau$ have high variance whereas arms below $\tau$ have lower variance. The result is shown in Figure \ref{Fig:budgetExpt1}. In this experiment we see that UCBEV which has access to the problem complexity and is a variance-aware algorithm beats all other algorithm including UCBE which has access to the problem complexity but does not take into account the variance of the arms. AugUCB with the said parameters outperforms UCBE, APT and the other non variance-aware algorithms that we have considered. 
 	
-	\begin{figure}
+	\begin{figure}[!h]
     \centering
     \begin{tabular}{cc}
     \subfigure[0.32\textwidth][Experiment $1$: Experiment with Arithmetic Progression]

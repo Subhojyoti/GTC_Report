@@ -5,6 +5,13 @@
 \BOOKMARK [1][-]{section.5}{Objective and Scope}{}
 \BOOKMARK [1][-]{section.6}{Proposed Methodology}{}
 \BOOKMARK [1][-]{section.7}{Work Done}{}
+\BOOKMARK [2][-]{subsection.7.1}{Problem Complexity}{section.7}
+\BOOKMARK [2][-]{subsection.7.2}{Theorem 2}{section.7}
 \BOOKMARK [1][-]{section.8}{Contribution}{}
 \BOOKMARK [1][-]{section.9}{Schedule}{}
 \BOOKMARK [1][-]{section.10}{Appendix}{}
+\BOOKMARK [2][-]{subsection.10.1}{Proof of Regret Bound of ClusUCB}{section.10}
+\BOOKMARK [2][-]{subsection.10.2}{Proof of error probability of AugUCB}{section.10}
+\BOOKMARK [3][-]{subsubsection.10.2.1}{Arm i is not eliminated on or before round max"4266308 mi,gi"5267309 }{subsection.10.2}
+\BOOKMARK [2][-]{subsection.10.3}{Empirical performance of ClusUCB}{section.10}
+\BOOKMARK [2][-]{subsection.10.4}{Empirical performance of AugUCB}{section.10}

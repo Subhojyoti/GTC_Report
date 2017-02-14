@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2016.9.30)  14 FEB 2017 13:03
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2016.9.30)  14 FEB 2017 14:27
 entering extended mode
  %&-line parsing enabled.
 **GTC_Report.tex
@@ -610,7 +610,13 @@ File: pgflibrarypatterns.code.tex 2008/03/03 v2.10 (rcs-revision 1.13)
 (/usr/share/texmf/tex/generic/pgf/frontendlayer/tikz/libraries/tikzlibraryfit.c
 ode.tex
 File: tikzlibraryfit.code.tex 2008/06/21 v2.10 (rcs-revision 1.3)
-) (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
+)
+\c@theorem=\count138
+\c@remark=\count139
+\c@proposition=\count140
+\c@corollary=\count141
+\c@proof=\count142
+ (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2009/10/09 v6.79a Hypertext links for LaTeX
 
 (/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
@@ -632,8 +638,8 @@ O)
 Package: xcolor-patch 2009/10/02 xcolor patch
 ))
 \@linkdim=\dimen185
-\Hy@linkcounter=\count138
-\Hy@pagecounter=\count139
+\Hy@linkcounter=\count143
+\Hy@pagecounter=\count144
 
 (/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2009/10/09 v6.79a Hyperref: PDFDocEncoding definition (HO)
@@ -698,7 +704,7 @@ Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 )))
-\Fld@menulength=\count140
+\Fld@menulength=\count145
 \Field@Width=\dimen186
 \Fld@charsize=\dimen187
 \Field@toks=\toks40
@@ -713,14 +719,14 @@ Package hyperref Info: PDF/A mode OFF on input line 4407.
 (/usr/share/texmf-texlive/tex/generic/oberdiek/atbegshi.sty
 Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
 )
-\Hy@abspage=\count141
-\c@Item=\count142
-\c@Hfootnote=\count143
+\Hy@abspage=\count146
+\c@Item=\count147
+\c@Hfootnote=\count148
 )
 *hyperref using default driver hpdftex*
 (/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2009/10/09 v6.79a Hyperref driver for pdfTeX
-\Fld@listcount=\count144
+\Fld@listcount=\count149
 )
 (/usr/share/texmf-texlive/tex/latex/subfigure/subfigure.sty
 Package: subfigure 2002/03/15 v2.1.5 subfigure package
@@ -730,10 +736,10 @@ Package: subfigure 2002/03/15 v2.1.5 subfigure package
 \subfigbottomskip=\skip55
 \subfigcapmargin=\dimen189
 \subfiglabelskip=\skip56
-\c@subfigure=\count145
-\c@lofdepth=\count146
-\c@subtable=\count147
-\c@lotdepth=\count148
+\c@subfigure=\count150
+\c@lofdepth=\count151
+\c@subtable=\count152
+\c@lotdepth=\count153
 
 ****************************************
 * Local config file subfigure.cfg used *
@@ -750,7 +756,7 @@ Language: english 2005/03/30 v3.3o English support from the babel system
 
 (/usr/share/texmf-texlive/tex/generic/babel/babel.def
 File: babel.def 2008/07/06 v3.8l Babel common definitions
-\babel@savecnt=\count149
+\babel@savecnt=\count154
 \U@D=\dimen190
 )
 \l@canadian = a dialect from \language\l@american 
@@ -769,7 +775,7 @@ Package: caption3 2009/10/09 v3.1k caption3 kernel (AR)
 \caption@parindent=\dimen195
 \caption@hangindent=\dimen196
 )
-\c@ContinuedFloat=\count150
+\c@ContinuedFloat=\count155
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: subfigure package is loaded.
@@ -789,11 +795,18 @@ Package: array 2008/09/09 v2.4c Tabular extension package (FMi)
 \backup@length=\skip60
 )
 \rotheadsize=\dimen199
-\c@nlinenum=\count151
+\c@nlinenum=\count156
 \TeXr@lab=\toks42
 ))
-\c@problem=\count152
- (./GTC_Report.aux)
+\c@problem=\count157
+ (./GTC_Report.aux
+
+LaTeX Warning: Label `AppendixA' multiply defined.
+
+
+LaTeX Warning: Label `AppendixB' multiply defined.
+
+)
 \openout1 = `GTC_Report.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 15.
@@ -811,21 +824,20 @@ LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 15.
 LaTeX Font Info:    ... okay on input line 15.
 LaTeX Font Info:    Try loading font information for OT1+ptm on input line 15.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
+ (/usr/share/texmf-texlive/tex/latex/psnfss/ot1ptm.fd
 File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 )
 (/usr/share/texmf-texlive/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count153
+\scratchcounter=\count158
 \scratchdimen=\dimen200
 \scratchbox=\box60
-\nofMPsegments=\count154
-\nofMParguments=\count155
+\nofMPsegments=\count159
+\nofMParguments=\count160
 \everyMPshowfont=\toks43
-\MPscratchCnt=\count156
+\MPscratchCnt=\count161
 \MPscratchDim=\dimen201
-\MPnumerator=\count157
+\MPnumerator=\count162
 \everyMPtoPDFconversion=\toks44
 ) ABD: EveryShipout initializing macros
 Package hyperref Info: Link coloring OFF on input line 15.
@@ -836,7 +848,7 @@ Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
 )
-\c@section@level=\count158
+\c@section@level=\count163
 )
 LaTeX Info: Redefining \ref on input line 15.
 LaTeX Info: Redefining \pageref on input line 15.
@@ -952,7 +964,7 @@ LaTeX Warning: Float too large for page by 14.57607pt on input line 204.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-) (./workDone.tex) (./contribution.tex) [12] (./schedule.tex
+) (./workDone.tex [12]) (./contribution.tex) [13] (./schedule.tex
 Underfull \hbox (badness 10000) in paragraph at lines 12--12
 []|\OT1/ptm/m/n/12 January-
  []
@@ -967,15 +979,79 @@ Underfull \hbox (badness 10000) in paragraph at lines 14--14
 []|\OT1/ptm/m/n/12 March-
  []
 
-) [13] [14] (./GTC_Report.bbl [15
+) [14] [15] (./GTC_Report.bbl [16
 
 ]
 LaTeX Font Info:    Try loading font information for OT1+pcr on input line 78.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
-) [16]) [17]
-(./appendix.tex
+) [17]) [18]
+(./appendix.tex [19
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 167--168
+
+ []
+
+[20] [21]
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 250.
+
+
+
+LaTeX Font Warning: Command \scriptsize invalid in math mode on input line 250.
+
+
+[22] [23]
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathop' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\mathgroup' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\symoperators' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\nmlimits@' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\delimiter' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `subscript' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `\delimiter' on input line 341.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (PDFDocEncoding):
+(hyperref)                removing `math shift' on input line 341.
+
+[24] [25] [26]
+Overfull \hbox (39.66939pt too wide) in paragraph at lines 504--505
+\OT1/ptm/m/it/12 fore $\OML/cmm/m/it/12 g[]$\OT1/ptm/m/it/12 -th round based on
+ the ([]5[]) and ([]6[]) elim-i-na-tion con-di-tion is $\OT1/cmr/m/n/12 4 [] []
+$\OT1/ptm/m/it/12 . 
+ []
+
+[27]
 PGFPlots: reading {results/NewExpt/Expt1/UCBV01_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt1/UCB01_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt1/KLUCB01_comp_subsampled.txt}
@@ -985,7 +1061,7 @@ PGFPlots: reading {results/NewExpt/Expt1/EclUCB01_1_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt1/TS01_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt1/OCUCB01_comp_subsampled.txt}
 
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
+Underfull \hbox (badness 10000) in paragraph at lines 679--679
 []\OT1/ptm/m/n/10 (a) Ex-per-i-ment $\OT1/cmr/m/n/10 1$\OT1/ptm/m/n/10 : $\OT1/
 cmr/m/n/10 20$ \OT1/ptm/m/n/10 Bernoulli-
  []
@@ -998,25 +1074,18 @@ PGFPlots: reading {results/NewExpt/Expt2_2/EclUCB01_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt2_2/OCUCB01_comp_subsampled.txt}
 PGFPlots: reading {results/NewExpt/Expt2_2/UCBR01_comp_subsampled.txt}
 
-Underfull \hbox (badness 2635) in paragraph at lines 72--72
+Underfull \hbox (badness 2635) in paragraph at lines 710--710
 []\OT1/ptm/m/n/10 (b) Ex-per-i-ment $\OT1/cmr/m/n/10 2$\OT1/ptm/m/n/10 : $\OT1/
 cmr/m/n/10 100$ \OT1/ptm/m/n/10 Gaussian-
  []
 
 
-Overfull \hbox (5.45724pt too wide) in paragraph at lines 78--80
+Overfull \hbox (5.45724pt too wide) in paragraph at lines 716--718
 \OT1/ptm/m/n/12 the fol-low-ing al-go-rithms: KL-UCB[[]], DMED[[]], MOSS[[]], U
 CB1[[]], UCB-
  []
 
-[18
-
-]
-
-LaTeX Warning: Reference `Result:Theorem:1' on page 19 undefined on input line 
-92.
-
-[19]
+[28] [29]
 PGFPlots: reading {results/budgetTestAP/APT12_comp_subsampled.txt}
 PGFPlots: reading {results/budgetTestAP/AugUCBV_1_13_comp_subsampled.txt}
 PGFPlots: reading {results/budgetTestAP/UCBEM1_comp_subsampled.txt}
@@ -1029,17 +1098,17 @@ PGFPlots: reading {results/budgetTestGP/UCBEM1_comp_subsampled.txt}
 PGFPlots: reading {results/budgetTestGP/UCBEMV1_comp_subsampled.txt}
 PGFPlots: reading {results/budgetTestGP/SR1_comp_subsampled.txt}
 PGFPlots: reading {results/budgetTestGP/UA1_comp_subsampled.txt}
-) [20] (./GTC_Report.aux)
+ [30]) [31] (./GTC_Report.aux)
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 21870 strings out of 493848
- 453370 string characters out of 1152823
- 614906 words of memory out of 3000000
- 24476 multiletter control sequences out of 15000+50000
- 30859 words of font info for 72 fonts, out of 3000000 for 9000
+ 21953 strings out of 493848
+ 454364 string characters out of 1152823
+ 624736 words of memory out of 3000000
+ 24527 multiletter control sequences out of 15000+50000
+ 31955 words of font info for 74 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
  63i,27n,75p,1807b,1774s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texli
@@ -1064,9 +1133,9 @@ xlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/type1/
 urw/times/utmb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmbi8a.pf
 b></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-
 texlive/fonts/type1/urw/times/utmri8a.pfb>
-Output written on GTC_Report.pdf (20 pages, 376317 bytes).
+Output written on GTC_Report.pdf (31 pages, 449626 bytes).
 PDF statistics:
- 411 PDF objects out of 1000 (max. 8388607)
- 108 named destinations out of 1000 (max. 500000)
- 93 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 534 PDF objects out of 1000 (max. 8388607)
+ 140 named destinations out of 1000 (max. 500000)
+ 149 words of extra memory for PDF output out of 10000 (max. 10000000)
 
